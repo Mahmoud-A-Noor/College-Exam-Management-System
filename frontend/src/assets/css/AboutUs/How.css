@@ -1,0 +1,95 @@
+#how{
+    position: relative;
+    padding-block: 4em;
+    background-color: white;
+    z-index: 2;
+}
+
+#how h1{
+    position: relative;
+    font-family: var(--font-primary);
+    font-size: 4rem;
+    text-align: center;
+}
+
+#how h1::after{
+    position: absolute;
+    content: '';
+    left: 40.5%;
+    bottom: -20%;
+    width: 19%;
+    height: 4px;
+    border-radius: 50px;
+    background: linear-gradient(90deg,#35369B 0%,#6597CB 100%);
+}
+
+#how .container{
+    margin-top: 6em;
+}
+
+@media only screen and (max-width: 992px) {
+    #how .container {
+        margin-top: 2em;
+    }
+}
+
+.how-card{
+    position: relative;
+    text-align: center;
+    padding: 2em;
+    color: white;
+    background: linear-gradient(180deg,#35369B 0%,#6597CB 100%);
+    transition: all 0.5s;
+}
+
+@media only screen and (max-width: 992px) {
+    .how-card {
+        margin-top: 4em;
+    }
+}
+
+.how-card:hover{
+    scale: 1.1;
+}
+
+.how-card-icon{
+    position: absolute;
+    top: -1em;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 3rem;
+    color: #373F83;
+
+    padding: 0.2em 0.4em;
+    background-color: white;
+    border-radius: 100%;
+}
+
+#how .bi-pie-chart-fill {
+    color: #FF5733; 
+}
+
+#how .bi-speedometer {
+    color: #1E90FF; 
+}
+
+#how .bi-shield-lock-fill {
+    color: #008000; 
+}
+
+#how .bi-hand-thumbs-up-fill {
+    color: #9370DB   ;
+}
+
+
+.how-card h4{
+    margin-top: 1em;
+}
+
+.how-card:last-of-type h4{
+    font-size: 1.45rem;
+}
+
+.how-card p{
+    margin-top: 0.7em;
+}

@@ -1,0 +1,45 @@
+.feature{
+    padding-block: 2em;
+}
+
+.feature:nth-child(n){
+    background-color: white;
+}
+
+.feature:nth-child(2n){
+    background-color: whitesmoke;
+}
+
+@media only screen and (max-width: 991px) {
+    .feature:nth-child(2n) div.row{
+        text-align: center;
+        flex-direction: column-reverse !important;
+    }
+
+    .feature:nth-child(n) div.row{
+        text-align: center;
+    }
+}
+
+
+/* .feature-img{
+    max-width: 550px;
+} */
+
+.feature-text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+#features h3{
+    font-family: var(--font-primary);
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.5em;
+}
+
+#features p{
+    color: #797ABC;
+}

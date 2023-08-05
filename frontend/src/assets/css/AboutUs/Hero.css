@@ -1,0 +1,86 @@
+#about-us-hero {
+    padding-top: 11em;
+    padding-bottom: 4.65em;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: white;
+    position: relative;
+}
+
+#about-us-hero::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    bottom: 0;
+    height: 50%;
+    width: 100%;
+    background: url(../../images/banner-wave.svg) no-repeat center bottom;
+    background-size: cover;
+}
+
+@media only screen and (max-width: 865px) {
+    #about-us-hero{
+        padding-top: 7em;
+        padding-bottom: 2.5em;
+    }
+}
+
+.wave-container {
+    z-index: 1;
+}
+
+@media only screen and (min-width: 992px) {
+    .wave-container img {
+        min-width: 700px;
+    }
+}
+
+.hero-bubble{
+    position: absolute;
+    font-family: var(--font-primary);
+    font-size: 3rem;
+    font-weight: 700;
+    border-radius: 100%;
+    z-index: 2;
+}
+
+.hero-bubble:nth-child(2){
+    left: 15%;
+    top: 25%;
+    color: white;
+    padding: 0.7em;
+    background-color: var(--color-primary);
+}
+
+.hero-bubble:nth-child(3){
+    right: 15%;
+    top: 23%;
+    color: white;
+    padding: 1em 0.5em;
+    background-color: var(--color-primary);
+}
+
+.hero-bubble:nth-child(4){
+    left: 13%;
+    bottom: 8%;
+    padding: 1em 0.7em;
+    color: var(--color-primary);
+    background-color: white;
+}
+
+.hero-bubble:nth-child(5){
+    right: 12%;
+    bottom: 14%;
+    color: var(--color-primary);
+    padding: 0.7em;
+    background-color: white;
+}
+
+@media only screen and (max-width: 865px) {
+    .hero-bubble{
+        display: none;
+    }
+}

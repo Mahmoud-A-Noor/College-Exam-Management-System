@@ -1,0 +1,48 @@
+#who{
+    padding-top: 1em;
+    padding-bottom: 3em;
+    background-color: white;
+}
+
+@media only screen and (max-width: 991px) {
+    #who .row{
+        text-align: center;
+        flex-direction: column-reverse !important;
+    }
+}
+
+#who h1{
+    position: relative;
+    font-family: var(--font-primary);
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: 0.1em;
+}
+
+#who h1::after{
+    position: absolute;
+    content: '';
+    left: 42%;
+    bottom: -20%;
+    width: 16%;
+    height: 4px;
+    border-radius: 50px;
+    background: linear-gradient(90deg,#6597CB 0%,#35369B 100%);
+}
+
+
+#who p{
+    font-family: var(--font-primary);
+    padding-inline: 3em;
+    font-size: 1.4rem;
+    line-height: 30px;
+    color: #030304;
+    margin-block: 0.5em;
+}
+
+
+@media only screen and (max-width: 991px) {
+    #who p{
+        margin-top: 0.5em;
+    }
+}
