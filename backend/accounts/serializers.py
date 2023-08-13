@@ -1,5 +1,10 @@
 from rest_framework import serializers
 from .models import CustomUser
+from rest_framework.authtoken.models import Token
+
+class UserLoginSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    password = serializers.CharField(write_only=True)
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

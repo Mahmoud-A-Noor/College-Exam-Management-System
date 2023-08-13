@@ -5,5 +5,5 @@ urlpatterns = [
     path('', UserListView.as_view(), name='users-list'),
     path('create/', UserCreateView.as_view(), name='user-create'),
     path('<int:pk>/', UserRetrieveUpdateDeleteView.as_view(), name='user-detail'),
-    
+    path('login/', UserLoginView.as_view(), name="auth-token"),
 ]

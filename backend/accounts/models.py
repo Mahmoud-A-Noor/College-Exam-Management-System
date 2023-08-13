@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils import timezone
+from rest_framework.authtoken.models import Token
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, first_name, last_name, gender, user_type, password, **extra_fields):
@@ -18,6 +19,7 @@ class CustomUserManager(BaseUserManager):
         )
         user.set_password(password)
         user.save(using=self._db)
+        Token.objects.create(user=user)
         return user
     
     def create_superuser(self, email, first_name, last_name, gender, user_type, password, **extra_fields):
