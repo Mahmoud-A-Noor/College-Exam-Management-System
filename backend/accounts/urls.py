@@ -6,4 +6,5 @@ urlpatterns = [
     path('create/', UserCreateView.as_view(), name='user-create'),
     path('<int:pk>/', UserRetrieveUpdateDeleteView.as_view(), name='user-detail'),
     path('login/', login_view, name="auth-token"),
+    path('token/refresh', refresh_token, name="auth-token"),
 ]

@@ -28,6 +28,19 @@ def login_view(request):
     else:
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
+@api_view(['POST'])
+def refresh_token(request):
+        refresh_token = request.data.get('refresh_token')
+
+        if refresh_token:
+            try:
+                refresh = RefreshToken(refresh_token)
+                access_token = str(refresh.access_token)
+                return Response({'access_token': access_token}, status=status.HTTP_200_OK)
+            except Exception:
+                return Response({'error': 'Invalid refresh token'}, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({'error': 'Refresh token not provided'}, status=status.HTTP_400_BAD_REQUEST)
 
 class UserCreateView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
