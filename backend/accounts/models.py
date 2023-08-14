@@ -28,6 +28,7 @@ class CustomUserManager(BaseUserManager):
 
 USER_TYPES = (
     ('S', 'Student'),
+    ('L', 'Lecturer'),
     ('A', 'Admin'),
 )
 class CustomUser(AbstractBaseUser, PermissionsMixin):
