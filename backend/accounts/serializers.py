@@ -4,9 +4,8 @@ from .models import CustomUser
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomUser
-        fields = '__all__'
+        exclude = ['password']
         extra_kwargs = {
-            'password': {'write_only': True},
             'date_of_birth': {'read_only': True},
             'gender': {'read_only': True},
             'date_joined': {'read_only': True},
