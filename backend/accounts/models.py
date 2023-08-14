@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils import timezone
-from rest_framework.authtoken.models import Token
+from django.contrib.auth.hashers import make_password
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, first_name, last_name, gender, user_type, password, **extra_fields):
@@ -19,6 +19,7 @@ class CustomUserManager(BaseUserManager):
         )
         user.set_password(password)
         user.save(using=self._db)
+
         return user
     
     def create_superuser(self, email, first_name, last_name, gender, user_type, password, **extra_fields):
@@ -54,4 +55,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
-
+    def save(self, *args, **kwargs):
+        self.set_password(self.password)
+        self.is_active = True
+        super().save(*args, **kwargs)
