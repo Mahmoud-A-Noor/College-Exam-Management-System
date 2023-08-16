@@ -7,5 +7,5 @@ urlpatterns = [
     path('<int:pk>/', UserRetrieveDeleteView.as_view(), name='user-detail'),
     path('update/', update_user, name="update"),
     path('login/', login_view, name="auth-token"),
-    path('token/refresh', refresh_token, name="auth-token"),
+    path('token/refresh/', refresh_token, name="auth-token"),
 ]

@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import jwt_decode from "jwt-decode";
 import axios from 'axios';
 
+import useUserData from '../hooks/useUserData';
+
 
 const AuthContext = createContext()
 
@@ -18,6 +20,16 @@ export const AuthProvider = ({children}) => {
 
     const navigate = useNavigate()
     const BASE_API_URL = "http://127.0.0.1:8000/"
+      
+    let logoutUser = () => {
+        setAuthTokens(null)
+        setUser(null)
+        localStorage.removeItem('authTokens')
+        removeUserData()
+        navigate('/login', {replace:true});
+    }
+
+    const { removeUserData, updateUserData, axiosInstance } = useUserData(authTokens, setAuthTokens, setUser, logoutUser);
 
     let loginUser = (e) => {
 
@@ -26,7 +38,7 @@ export const AuthProvider = ({children}) => {
         if(!e.target.email.value || !e.target.password.value){
             setError("Please Enter All Fields");
         }else{
-            axios.post(BASE_API_URL + 'account/token/', {
+            axios.post(BASE_API_URL + 'account/login/', {
                 'email': e.target.email.value,
                 'password': e.target.password.value,
             })
@@ -34,7 +46,7 @@ export const AuthProvider = ({children}) => {
                 const data = response.data;
             
                 setAuthTokens(data);
-                setUser(jwt_decode(data.access));
+                setUser(jwt_decode(data.access_token));
                 localStorage.setItem('authTokens', JSON.stringify(data));
                 navigate('/dashboard', {replace:true});
               
@@ -47,13 +59,43 @@ export const AuthProvider = ({children}) => {
             });
         }
       };
-      
-    let logoutUser = () => {
-        setAuthTokens(null)
-        setUser(null)
-        localStorage.removeItem('authTokens')
-        navigate('/login', {replace:true});
-    }
+
+    const registerUser = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+
+        const fields = e.target.elements;
+
+        for (const field of fields) {
+            const fieldName = field.getAttribute('name');
+            const fieldValue = field.value;
+
+            if (fieldName === 'img' && field.files.length > 0) {
+                formData.append(fieldName, field.files[0]);
+            } else if (fieldValue !== '') {
+                formData.append(fieldName, fieldValue);
+            }
+        }
+
+        formData.append('user_type', 'S');
+
+        axios.post(BASE_API_URL + 'account/register/', formData)
+            .then(response => {
+                // Registration successful, now log in the user
+                loginUser(e)
+
+            })
+            .catch(error => {
+                console.log(error);
+                if (error.response) {
+                    // setError(error.response.data["email"]);
+                    setError("Another user with the same email already exists !");
+                } else {
+                    setError('An unexpected error occurred.');
+                }
+        });
+    };
 
 
     let contextData = {
@@ -63,14 +105,16 @@ export const AuthProvider = ({children}) => {
         setUser:setUser,
         loginUser:loginUser,
         logoutUser:logoutUser,
-        error: error
+        registerUser: registerUser,
+        error: error,
+        setError: setError,
     }
 
 
     useEffect(()=> {
 
         if(authTokens){
-            setUser(jwt_decode(authTokens.access))
+            setUser(jwt_decode(authTokens.access_token))
         }
         setLoading(false)
 

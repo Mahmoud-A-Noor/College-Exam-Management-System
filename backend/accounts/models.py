@@ -27,6 +27,8 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault("is_superuser", True)
         return self.create_user(email, first_name, last_name, gender, password, **extra_fields)
 
+    def get_by_natural_key(self, email):
+        return self.get(email=email)
 
 USER_TYPES = (
     ('S', 'Student'),
