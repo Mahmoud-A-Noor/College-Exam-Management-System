@@ -1,5 +1,4 @@
 from rest_framework import generics
-from rest_framework.views import APIView
 from .models import CustomUser
 from .serializers import *
 from rest_framework.permissions import IsAuthenticated
@@ -12,14 +11,14 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
-def update_user(request, pk):
-    try:
-        user = CustomUser.objects.get(pk=pk)
-        data = request.data
-    except CustomUser.DoesNotExist:
-        return Response({'detail': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
-
+def update_user(request):
     data = request.data
+    id = data.get('id', None)
+    try:
+        user = CustomUser.objects.get(id=id)
+    except CustomUser.DoesNotExist:
+        return Response({'error': 'User not found.'}, status=status.HTTP_404_NOT_FOUND)
+
     serializer = UserUpdateSerializer(instance=user, data=data, partial=True)
     
     if serializer.is_valid():
