@@ -13,9 +13,11 @@ class CustomUserManager(BaseUserManager):
             first_name=first_name,
             last_name=last_name,
             gender = gender,
-            password=password,
+            is_active=True,
             **extra_fields,
         )
+
+        user.set_password(password)
         user.save(using=self._db)
 
         return user
@@ -52,8 +54,3 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
-
-    def save(self, *args, **kwargs):
-        self.set_password(self.password)
-        self.is_active = True
-        super().save(*args, **kwargs)
