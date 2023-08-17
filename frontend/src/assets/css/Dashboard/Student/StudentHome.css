@@ -1,0 +1,14 @@
+#student-home{
+    padding-top: 6em;
+    padding-bottom: 2em;
+    padding-inline: 1em;
+    background-color: white;
+}
+
+@media (min-width: 1023px) {
+	#student-home{
+		padding-left: 270px;
+        padding-right: 40px;
+        padding-block: 1em;
+	}
+}

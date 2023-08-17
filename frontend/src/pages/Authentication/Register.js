@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
+import AuthContext from '../../context/AuthContext';
 
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import AuthContext from '../../context/AuthContext';
 
 
 import '../../assets/css/Authentication/Register.css'

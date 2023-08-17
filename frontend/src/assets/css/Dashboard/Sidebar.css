@@ -1,0 +1,127 @@
+#sidebar-body-overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 5;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+
+#sidebar-toggler{
+    position: fixed;
+    top: 0;
+    width: 100%;
+	background: linear-gradient(90deg,#35369B 0%,#6597CB 100%);
+	color: white;
+	font-size: 2.5rem;
+	padding-block: 0.3em;
+	padding-inline: 0.5em;
+	cursor: pointer;
+    transition: all 0.5s ease;
+    z-index: 6;
+}
+
+#sidebar-toggler.active{
+    margin-left: 200px;
+}
+
+#sidebar{
+    position: fixed;
+    top: 0;
+    left: -200px;
+    width: 200px;
+    height: 100%;
+    padding-top: 20px;
+	z-index: 7;
+    background: linear-gradient(90deg,#35369B 0%,#6597CB 100%);
+    transition: all 0.5s ease;
+}
+
+#sidebar.active{
+    left: 0;
+}
+
+@media (min-width: 1023px) {
+	#sidebar-toggler{
+		display: none;
+	}
+
+	#sidebar{
+		left: 0;
+		width: 230px;
+	}
+}
+
+#sidebar-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sidebar-img img{
+    width: 150px;
+    height: 150px;
+}
+
+
+@media (min-width: 1023px) {
+    #sidebar-img img{
+        width: 180px;
+        height: 180px;
+    }
+}
+
+#sidebar-user-info{
+    text-align: center;
+    color: white;
+}
+
+#sidebar-user-info p{
+    margin-top: 0.5em;
+    font-weight: 500;
+    margin-bottom: -0.2em;
+}
+
+#sidebar-user-info small{
+    font-weight: 400;
+}
+
+.sidebar-divider{
+    margin-block: 1em;
+    height: 1.5px;
+    background: linear-gradient(90deg,#35369B 0%,#6597CB 25%,#6597CB 75%, #35369B 100%);
+}
+
+#sidebar-nav-items ul li{
+    display: flex;
+    align-items: center;
+    color: white;
+    padding-block: 0.5em;
+    padding-inline: 1em;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+#sidebar-nav-items ul li:hover{
+    background-color: white;
+    color: var(--color-primary);
+}
+
+#sidebar-nav-items ul li i{
+    font-size: 2rem;
+    margin-right: 0.5em;
+}
+
+#sidebar-nav-items ul li p{
+    display: flex;
+    align-items: center;
+}
+
+#sidebar-user-actions-nav-items{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}

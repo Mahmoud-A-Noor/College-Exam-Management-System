@@ -17,11 +17,12 @@ export const AuthProvider = ({children}) => {
     let [user, setUser] = useState(()=> localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null)
     let [loading, setLoading] = useState(true)
     const [error, setError] = useState('');
+    let [success, setSuccess] = useState("")
 
     const navigate = useNavigate()
     const BASE_API_URL = "http://127.0.0.1:8000/"
       
-    let logoutUser = () => {
+    const logoutUser = () => {
         setAuthTokens(null)
         setUser(null)
         localStorage.removeItem('authTokens')
@@ -29,10 +30,9 @@ export const AuthProvider = ({children}) => {
         navigate('/login', {replace:true});
     }
 
-    const { removeUserData, updateUserData, axiosInstance } = useUserData(authTokens, setAuthTokens, setUser, logoutUser);
+    const { userData, removeUserData, updateUserData, axiosInstance } = useUserData(authTokens, setAuthTokens, setUser, logoutUser);
 
-    let loginUser = (e) => {
-
+    const loginUser = (e) => {
         e.preventDefault()
 
         if(!e.target.email.value || !e.target.password.value){
@@ -51,8 +51,9 @@ export const AuthProvider = ({children}) => {
                 navigate('/dashboard', {replace:true});
               
             }).catch(error => {
+                console.log(error);
                 if (error.response) {
-                    setError(error.response.data.detail);
+                    setError(error.response.error);
                 } else {
                     setError('An unexpected error occurred.');
                 }
@@ -82,19 +83,51 @@ export const AuthProvider = ({children}) => {
 
         axios.post(BASE_API_URL + 'account/register/', formData)
             .then(response => {
-                // Registration successful, now log in the user
                 loginUser(e)
-
             })
             .catch(error => {
                 console.log(error);
                 if (error.response) {
-                    // setError(error.response.data["email"]);
                     setError("Another user with the same email already exists !");
                 } else {
                     setError('An unexpected error occurred.');
                 }
         });
+    };
+
+    const updateUser = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append("id", user.user_id);
+
+        const fields = e.target.elements;
+
+        for (const field of fields) {
+            const fieldName = field.getAttribute('name');
+            const fieldValue = field.value;
+
+            if (fieldName === 'img' && field.files.length > 0) {
+                formData.append(fieldName, field.files[0]);
+            } else if (fieldName !== 'img') {
+                formData.append(fieldName, fieldValue);
+            }
+        }
+
+        axiosInstance.put('account/update/', formData)
+            .then(response => {
+                updateUserData();
+                setSuccess("Your Profile is updated successfully")
+            })
+            .catch(error => {
+                console.log(error);
+                if (error.response) {
+                    setError(error.response.error);
+                } else {
+                    setError('An unexpected error occurred.');
+                }
+            }
+        );
     };
 
 
@@ -106,8 +139,12 @@ export const AuthProvider = ({children}) => {
         loginUser:loginUser,
         logoutUser:logoutUser,
         registerUser: registerUser,
+        updateUser: updateUser,
+        userData: userData,
         error: error,
         setError: setError,
+        success: success,
+        setSuccess: setSuccess,
     }
 
 
