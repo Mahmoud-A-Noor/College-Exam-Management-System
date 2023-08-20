@@ -1,10 +1,11 @@
-import { createContext, useState, useEffect } from 'react'
+import { createContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import jwt_decode from "jwt-decode";
 import axios from 'axios';
 
-import useUserData from '../hooks/useUserData';
+import useAuthToken from '../hooks/useAuthToken';
+import useUser from '../hooks/useUser';
+import useAxios from '../hooks/useAxios';
 
 
 const AuthContext = createContext()
@@ -13,24 +14,22 @@ export default AuthContext;
 
 
 export const AuthProvider = ({children}) => {
-    let [authTokens, setAuthTokens] = useState(()=> localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null)
-    let [user, setUser] = useState(()=> localStorage.getItem('authTokens') ? jwt_decode(localStorage.getItem('authTokens')) : null)
-    let [loading, setLoading] = useState(true)
+    const { updateAuthToken } = useAuthToken();
+    const { user, userData, clearUserState, updateUserState } = useUser();
+    const axiosInstance = useAxios();
+
     const [error, setError] = useState('');
-    let [success, setSuccess] = useState("")
+    const [success, setSuccess] = useState("")
 
     const navigate = useNavigate()
     const BASE_API_URL = "http://127.0.0.1:8000/"
       
+    
     const logoutUser = () => {
-        setAuthTokens(null)
-        setUser(null)
-        localStorage.removeItem('authTokens')
-        removeUserData()
+        updateAuthToken(null)
+        clearUserState()
         navigate('/login', {replace:true});
-    }
-
-    const { userData, removeUserData, updateUserData, axiosInstance } = useUserData(authTokens, setAuthTokens, setUser, logoutUser);
+    };
 
     const loginUser = (e) => {
         e.preventDefault()
@@ -45,9 +44,8 @@ export const AuthProvider = ({children}) => {
             .then(response => {
                 const data = response.data;
             
-                setAuthTokens(data);
-                setUser(jwt_decode(data.access_token));
-                localStorage.setItem('authTokens', JSON.stringify(data));
+                updateAuthToken(data);
+                updateUserState();
                 navigate('/dashboard', {replace:true});
               
             }).catch(error => {
@@ -59,7 +57,7 @@ export const AuthProvider = ({children}) => {
                 }
             });
         }
-      };
+    };
 
     const registerUser = (e) => {
         e.preventDefault();
@@ -116,7 +114,7 @@ export const AuthProvider = ({children}) => {
 
         axiosInstance.put('account/update/', formData)
             .then(response => {
-                updateUserData();
+                updateUserState();
                 setSuccess("Your Profile is updated successfully")
             })
             .catch(error => {
@@ -132,35 +130,22 @@ export const AuthProvider = ({children}) => {
 
 
     let contextData = {
-        user:user,
-        authTokens:authTokens,
-        setAuthTokens:setAuthTokens,
-        setUser:setUser,
         loginUser:loginUser,
         logoutUser:logoutUser,
         registerUser: registerUser,
         updateUser: updateUser,
-        userData: userData,
         error: error,
         setError: setError,
         success: success,
         setSuccess: setSuccess,
+        user: user,
+        userData: userData,
     }
 
 
-    useEffect(()=> {
-
-        if(authTokens){
-            setUser(jwt_decode(authTokens.access_token))
-        }
-        setLoading(false)
-
-
-    }, [authTokens, loading])
-
     return(
         <AuthContext.Provider value={contextData} >
-            {loading ? null : children}
+            {children}
         </AuthContext.Provider>
     )
 }

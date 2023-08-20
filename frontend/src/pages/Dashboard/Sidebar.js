@@ -6,7 +6,7 @@ import '../../assets/css/Dashboard/Sidebar.css'
 
 export default function Sidebar({setPage}){
 
-    const { userData, logoutUser } = useContext(AuthContext)
+    const { logoutUser, userData } = useContext(AuthContext)
     
     const sidebar_toggler_ref = useRef(null)
     // const sidebar_toggler_ref = document.getElementById("sidebar-toggler")
@@ -63,13 +63,13 @@ export default function Sidebar({setPage}){
                         </ul>
                         
                         <ul id="sidebar-user-actions-nav-items">
-                            <li onClick={logoutUser}>
-                                <i className="bi bi-box-arrow-left"></i>
-                                <p>Logout</p>
-                            </li>
                             <li onClick={()=>{setPage("profile")}}>
                                 <i className="bi bi-person-fill"></i>
                                 <p>Profile</p>
+                            </li>
+                            <li onClick={logoutUser}>
+                                <i className="bi bi-box-arrow-left"></i>
+                                <p>Logout</p>
                             </li>
                         </ul>
                     </div>

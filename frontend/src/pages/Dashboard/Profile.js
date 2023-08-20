@@ -1,7 +1,6 @@
 import { useContext, useEffect } from 'react';
 import AuthContext from '../../context/AuthContext';
 
-import useUserData from '../../hooks/useUserData';
 
 import '../../assets/css/Dashboard/Profile.css'
 import ProfileImage from '../../assets/images/profile.png'
@@ -12,9 +11,7 @@ import ProfileImage from '../../assets/images/profile.png'
 
 export default function Profile() {
 
-    const { updateUser, error, setError, success, setSuccess } = useContext(AuthContext)
-    const { authTokens, setAuthTokens, setUser, logoutUser } = useContext(AuthContext)
-    const { userData } = useUserData(authTokens, setAuthTokens, setUser, logoutUser);
+    const { userData, updateUser, error, setError, success, setSuccess } = useContext(AuthContext)
 
     useEffect(()=>{
         setError("")
