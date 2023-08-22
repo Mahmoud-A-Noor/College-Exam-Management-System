@@ -14,9 +14,9 @@ export default AuthContext;
 
 
 export const AuthProvider = ({children}) => {
-    const { updateAuthToken } = useAuthToken();
-    const { user, userData, clearUserState, updateUserState } = useUser();
-    const axiosInstance = useAxios();
+    const { authToken, updateAuthToken } = useAuthToken();
+    const axiosInstance = useAxios(authToken, updateAuthToken);
+    const { user, userData, clearUserState, getUser } = useUser(authToken, axiosInstance);
 
     const [error, setError] = useState('');
     const [success, setSuccess] = useState("")
@@ -43,9 +43,8 @@ export const AuthProvider = ({children}) => {
             })
             .then(response => {
                 const data = response.data;
-            
                 updateAuthToken(data);
-                updateUserState();
+                getUser();
                 navigate('/dashboard', {replace:true});
               
             }).catch(error => {
@@ -114,7 +113,7 @@ export const AuthProvider = ({children}) => {
 
         axiosInstance.put('account/update/', formData)
             .then(response => {
-                updateUserState();
+                getUser();
                 setSuccess("Your Profile is updated successfully")
             })
             .catch(error => {
@@ -140,6 +139,7 @@ export const AuthProvider = ({children}) => {
         setSuccess: setSuccess,
         user: user,
         userData: userData,
+        authToken:authToken,
     }
 
 

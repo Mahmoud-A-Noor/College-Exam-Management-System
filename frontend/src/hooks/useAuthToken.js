@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const useAuthToken = () => {
-  const [authToken, setAuthToken] = useState(null);
+  const [authToken, setAuthToken] = useState(JSON.parse(localStorage.getItem('authTokens'))?JSON.parse(localStorage.getItem('authTokens')):null);
 
     useEffect(() => {
       setAuthToken(()=>JSON.parse(localStorage.getItem('authTokens')))

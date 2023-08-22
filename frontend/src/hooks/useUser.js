@@ -1,13 +1,8 @@
 import { useState, useEffect } from 'react';
 import jwt_decode from 'jwt-decode';
 
-import useAxios from "./useAxios"
-import useAuthToken from './useAuthToken';
 
-export default function useUser() {
-  const { authToken } = useAuthToken();
-  const axiosInstance = useAxios();
-
+export default function useUser(authToken, axiosInstance) {
   const [user, setUser] = useState(null)
   const [userData, setUserData] = useState(null);
 
@@ -21,7 +16,6 @@ export default function useUser() {
         axiosInstance.get(`account/${userId}/`)
           .then(response => {
             setUserData(()=>response.data);
-            console.log("welcome to mind games")
             localStorage.setItem('userData', JSON.stringify(response.data));
           })
           .catch(error => console.error('Error fetching user data:', error));
@@ -35,7 +29,7 @@ export default function useUser() {
   useEffect(() => {
     getUser();
     // eslint-disable-next-line
-  }, []);  
+  }, [authToken]);  
   
   // Function to remove user data from state and local storage
   const clearUserState = () => {
@@ -44,13 +38,8 @@ export default function useUser() {
     localStorage.removeItem('userData');
   };
 
-  // Function to update user data in state and local storage
-  const updateUserState = () => {
-    clearUserState();
-    getUser();
-  };
 
 
-  return { user, userData, updateUserState, clearUserState };
+  return { user, userData, getUser, clearUserState };
 
 }

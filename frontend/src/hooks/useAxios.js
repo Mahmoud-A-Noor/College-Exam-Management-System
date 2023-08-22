@@ -5,14 +5,12 @@ import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import dayjs from 'dayjs';
 
-import useAuthToken from './useAuthToken'; 
 
 
 const baseURL = 'http://127.0.0.1:8000/';
 
-const useAxios = () => {
+const useAxios = (authToken, updateAuthToken) => {
     const navigate = useNavigate()
-    const { authToken, updateAuthToken } = useAuthToken();
 
     const axiosInstance = axios.create({
         baseURL,
@@ -22,7 +20,6 @@ const useAxios = () => {
     });
 
     useEffect(() => {
-        if (authToken) {
         const requestInterceptor = axiosInstance.interceptors.request.use(
             async (req) => {
                 const user = jwt_decode(authToken.access_token);
@@ -54,9 +51,8 @@ const useAxios = () => {
             return () => {
                 axiosInstance.interceptors.request.eject(requestInterceptor);
             };
-        }
     // eslint-disable-next-line
-    }, [authToken]);
+    }, []);
 
     return axiosInstance;
     };

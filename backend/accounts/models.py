@@ -31,9 +31,9 @@ class CustomUserManager(BaseUserManager):
         return self.get(email=email)
 
 USER_TYPES = (
-    ('S', 'Student'),
-    ('L', 'Lecturer'),
-    ('A', 'Admin'),
+    ('student', 'Student'),
+    ('lecturer', 'Lecturer'),
+    ('admin', 'Admin'),
 )
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)

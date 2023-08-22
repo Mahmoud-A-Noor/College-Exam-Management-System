@@ -1,23 +1,31 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
+
+import AuthContext from '../context/AuthContext'
 
 import Profile from "../pages/Dashboard/Profile"
-// import AdminHome from '../pages/Dashboard/Admin/AdminHome'
+import AdminHome from '../pages/Dashboard/Admin/AdminHome'
+import LecturerHome from '../pages/Dashboard/Lecturer/LecturerHome'
 import StudentHome from '../pages/Dashboard/Student/StudentHome'
 
 
 export default function useUserContent() {
+    const { userData } = useContext(AuthContext)
     const [page, setPage] = useState("home")
-    const [pageContent, setPageContent] = useState(<h1>page Content</h1>)
+    const [pageContent, setPageContent] = useState(null)
 
     useEffect(()=> {
         if (page === "home") {
-            // ! here we will check for user type and set the pageContent to appropriate user home page
-            setPageContent(<StudentHome />)
+            if(userData?.user_type === "admin")
+                setPageContent(<AdminHome />)
+            else if (userData?.user_type === "lecturer")
+                setPageContent(<LecturerHome />)
+            else if(userData?.user_type === "student")
+                setPageContent(<StudentHome />)
         }
         else if (page === "profile"){
             setPageContent(<Profile />)
         }
-    }, [page])
+    }, [page, userData])
 
     
     return {
