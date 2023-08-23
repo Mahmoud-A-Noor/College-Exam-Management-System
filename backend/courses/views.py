@@ -9,7 +9,7 @@ class BaseGenericView(generics.GenericAPIView):
     queryset = None
     serializer_class = None
 
-    @user_type_required('any')
+    @user_type_required(['any'])
     def get(self, request, pk=None):
         if pk:
             try:
@@ -21,7 +21,7 @@ class BaseGenericView(generics.GenericAPIView):
         serializer = self.serializer_class(self.get_queryset(), many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    @user_type_required('admin')
+    @user_type_required(['admin'])
     def post(self, request):
         data = request.data
         serializer = self.serializer_class(data=data)
@@ -30,7 +30,7 @@ class BaseGenericView(generics.GenericAPIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response({'error':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
-    @user_type_required('admin')
+    @user_type_required(['admin'])
     def put(self, request, pk):
         try:
             instance = self.get_queryset().get(pk=pk)
@@ -43,7 +43,7 @@ class BaseGenericView(generics.GenericAPIView):
             return Response({'error':'Not found'}, status=status.HTTP_404_NOT_FOUND)
         return Response({'error':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
-    @user_type_required('admin')
+    @user_type_required(['admin'])
     def delete(self, request, pk):
         try:
             instance = self.get_queryset().get(pk=pk)
