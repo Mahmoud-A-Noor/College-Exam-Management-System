@@ -7,21 +7,24 @@ export default function useUser(authToken, axiosInstance) {
   const [userData, setUserData] = useState(null);
 
   const getUser = () =>{
-      if (authToken && authToken.access_token) {
-        const decodedToken = jwt_decode(authToken.access_token);
-        setUser(()=>decodedToken);
-        const userId = decodedToken.user_id;
-  
-        // Fetch user data from the API using the user ID
-        axiosInstance.get(`account/${userId}/`)
-          .then(response => {
-            setUserData(()=>response.data);
-            localStorage.setItem('userData', JSON.stringify(response.data));
-          })
-          .catch(error => console.error('Error fetching user data:', error));
-      }
-      else{
-        console.log("access token couldn't be found")
+      if(!user && !userData){
+        if (authToken && authToken.access_token) {
+          const decodedToken = jwt_decode(authToken.access_token);
+          setUser(()=>decodedToken);
+          const userId = decodedToken.user_id;
+    
+          // Fetch user data from the API using the user ID
+          axiosInstance.get(`account/${userId}/`)
+            .then(response => {
+              setUserData(()=>response.data);
+              // localStorage.setItem('userData', JSON.stringify(response.data));
+            })
+            .catch(error => console.error('Error fetching user data:', error));
+        }else{
+          console.log("Error fetching user data: access token couldn't be found")
+        }
+      }else{
+        console.log("no need to get user data, user data already exists")
       }
   }
 
@@ -37,8 +40,6 @@ export default function useUser(authToken, axiosInstance) {
     setUserData(()=>null);
     localStorage.removeItem('userData');
   };
-
-
 
   return { user, userData, getUser, clearUserState };
 
