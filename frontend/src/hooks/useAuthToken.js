@@ -1,12 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const useAuthToken = () => {
-  const [authToken, setAuthToken] = useState(JSON.parse(localStorage.getItem('authTokens'))?JSON.parse(localStorage.getItem('authTokens')):null);
-
-    useEffect(() => {
-      setAuthToken(()=>JSON.parse(localStorage.getItem('authTokens')))
-    }, [])
-    
+  const [authToken, setAuthToken] = useState(localStorage.getItem('authTokens')?JSON.parse(localStorage.getItem('authTokens')):null);
 
   const updateAuthToken = (newAuthToken) => {
     setAuthToken(()=>newAuthToken);

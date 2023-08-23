@@ -26,8 +26,8 @@ export const AuthProvider = ({children}) => {
       
     
     const logoutUser = () => {
-        updateAuthToken(null)
-        clearUserState()
+        updateAuthToken(null);
+        clearUserState();
         navigate('/login', {replace:true});
     };
 
@@ -113,8 +113,9 @@ export const AuthProvider = ({children}) => {
 
         axiosInstance.put('account/update/', formData)
             .then(response => {
+                clearUserState();
                 getUser();
-                setSuccess("Your Profile is updated successfully")
+                setSuccess("Your Profile is updated successfully");
             })
             .catch(error => {
                 console.log(error);
