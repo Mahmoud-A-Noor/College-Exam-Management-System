@@ -40,8 +40,23 @@ class Course(models.Model):
         verbose_name_plural = ("Courses")
 
     def __str__(self):
-        return self.name + f'-{self.semester}'
+        return self.name
 
     def save(self):
-        self.code = str(self.department) + f'-{self.code}'
+        if not self.pk:
+            self.code = f'{self.department}-{self.code}'
+            self.name = f'{self.name}-{self.semester}'
         return super().save()
+
+class Request(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = ("Request")
+        verbose_name_plural = ("Requests")
+        unique_together = ['user', 'course']
+
+    def __str__(self):
+        return f'{self.user.email}-{self.course.name}'

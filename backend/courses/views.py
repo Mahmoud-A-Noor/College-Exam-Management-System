@@ -1,6 +1,6 @@
 from rest_framework import generics
-from .serializers import DepartmentSerializer, CourseSerializer
-from .models import Department, Course
+from .serializers import DepartmentSerializer, CourseSerializer, RequestSerializer
+from .models import Department, Course, Request
 from rest_framework.response import Response
 from rest_framework import status
 from .decorators import user_type_required
@@ -59,3 +59,28 @@ class DepartmentView(BaseGenericView):
 class CourseView(BaseGenericView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+
+class RequestListCreateView(generics.GenericAPIView):
+    queryset = Request.objects.all()
+    serializer_class = RequestSerializer
+
+    @user_type_required(['admin'])
+    def get(self, request, pk=None):
+        if pk:
+            try:
+                instance = self.get_queryset().get(pk=pk)
+                serializer = self.serializer_class(instance=instance)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except:
+                return Response({'error':'Not found'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = self.serializer_class(self.get_queryset(), many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+    @user_type_required(['any'])
+    def post(self, request):
+        data = request.data
+        serializer = self.serializer_class(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({'error':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

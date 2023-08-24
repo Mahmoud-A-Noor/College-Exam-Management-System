@@ -2,10 +2,13 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('departments/', DepartmentView.as_view(), name='departments-list-retrieve'),
-    path('departments/<int:pk>', DepartmentView.as_view(), name='departments-create-update-delete'),
+    path('departments/', DepartmentView.as_view()),
+    path('departments/<int:pk>', DepartmentView.as_view()),
 
-    path('courses/', CourseView.as_view(), name='courses-list-retrieve'),
-    path('courses/<int:pk>', CourseView.as_view(), name='courses-create-update-delete'),
+    path('courses/', CourseView.as_view()),
+    path('courses/<int:pk>', CourseView.as_view()),
+
+    path('requests/', RequestListCreateView.as_view()),
+    path('requests/<int:pk>', RequestListCreateView.as_view()),
 
 ]
