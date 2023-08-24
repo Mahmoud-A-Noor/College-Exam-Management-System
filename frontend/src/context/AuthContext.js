@@ -26,7 +26,7 @@ export const AuthProvider = ({children}) => {
       
     
     const logoutUser = () => {
-        updateAuthToken(null);
+        updateAuthToken();
         clearUserState();
         navigate('/login', {replace:true});
     };
@@ -48,7 +48,7 @@ export const AuthProvider = ({children}) => {
                 navigate('/dashboard', {replace:true});
               
             }).catch(error => {
-                console.log(error);
+                console.error(error);
                 if (error.response) {
                     setError(error.response.error);
                 } else {
@@ -83,7 +83,7 @@ export const AuthProvider = ({children}) => {
                 loginUser(e)
             })
             .catch(error => {
-                console.log(error);
+                console.error(error);
                 if (error.response) {
                     setError("Another user with the same email already exists !");
                 } else {
@@ -118,7 +118,7 @@ export const AuthProvider = ({children}) => {
                 setSuccess("Your Profile is updated successfully");
             })
             .catch(error => {
-                console.log(error);
+                console.error(error);
                 if (error.response) {
                     setError(error.response.error);
                 } else {

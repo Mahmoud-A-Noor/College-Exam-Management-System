@@ -17,9 +17,10 @@ export default function useUser(authToken, axiosInstance) {
           axiosInstance.get(`account/${userId}/`)
             .then(response => {
               setUserData(()=>response.data);
-              // localStorage.setItem('userData', JSON.stringify(response.data));
             })
-            .catch(error => console.error('Error fetching user data:', error));
+            .catch(error => {
+              console.error('Error fetching user data:', error)
+            });
         }else{
           console.log("Error fetching user data: access token couldn't be found")
         }
@@ -32,13 +33,12 @@ export default function useUser(authToken, axiosInstance) {
   useEffect(() => {
     getUser();
     // eslint-disable-next-line
-  }, [authToken]);  
+  }, [axiosInstance]);  
   
   // Function to remove user data from state and local storage
   const clearUserState = () => {
     setUser(()=>null);
     setUserData(()=>null);
-    localStorage.removeItem('userData');
   };
 
   return { user, userData, getUser, clearUserState };
