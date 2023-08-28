@@ -6,11 +6,11 @@ import Sidebar from "./Sidebar";
 
 
 export default function Dashboard(){
-    const { setPage, pageContent } = useUserContent();
+    const { page, setPage, pageContent } = useUserContent();
 
     return (
         <>
-            <Sidebar setPage={setPage} />
+            <Sidebar page={page} setPage={setPage} />
             { pageContent }
         </>
     )

@@ -44,7 +44,8 @@
     left: 0;
 }
 
-@media (min-width: 1023px) {
+/* @media (min-width: 1023px) { */
+@media (min-width: 1215px) {
 	#sidebar-toggler{
 		display: none;
 	}
@@ -67,7 +68,7 @@
 }
 
 
-@media (min-width: 1023px) {
+@media (min-width: 1215px) {
     #sidebar-img img{
         width: 180px;
         height: 180px;
@@ -105,7 +106,7 @@
     transition: all 0.5s;
 }
 
-#sidebar-nav-items ul li:hover{
+#sidebar-nav-items ul li:hover, #sidebar-nav-items ul li.active{
     background-color: white;
     color: var(--color-primary);
 }

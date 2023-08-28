@@ -22,7 +22,7 @@ export default function useUser(authToken, axiosInstance) {
               console.error('Error fetching user data:', error)
             });
         }else{
-          console.log("Error fetching user data: access token couldn't be found")
+          console.log("Error fetching user data: access token is still being loaded")
         }
       }else{
         console.log("no need to get user data, user data already exists")

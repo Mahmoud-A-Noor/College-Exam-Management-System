@@ -29,6 +29,7 @@ export default function useUserContent() {
 
     
     return {
+        page,
         setPage,
         pageContent,
     }

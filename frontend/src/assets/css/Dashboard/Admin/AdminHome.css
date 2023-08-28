@@ -1,14 +1,103 @@
 #admin-home{
     padding-top: 6em;
-    padding-bottom: 2em;
     padding-inline: 1em;
+    background-color: #f7f7ff;
+}
+
+/* @media (min-width: 1023px) { */
+@media (min-width: 1215px) {
+	#admin-home{
+		padding-left: 250px;
+        padding-right: 20px;
+        padding-block: 0.5em;
+	}
+}
+
+#insight-cards{
+    margin-bottom: 3em;
+}
+
+.insight-card{
+    padding-block: 2em;
+    padding-inline: 1.5em;
+    border-radius: 10px;
+    margin-top: 1em;
+}
+
+.insight-card h5{
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+.insight-card h4{
+    color: white;
+    font-size: 1.5rem;
+}
+
+
+#nav-tabContent{
     background-color: white;
 }
 
-@media (min-width: 1023px) {
-	#admin-home{
-		padding-left: 270px;
-        padding-right: 40px;
-        padding-block: 1em;
-	}
+.tab-content{
+    width: 100%;
+}
+
+
+#students-card{
+    background: linear-gradient(to right, #8e2de2, #4a00e0);
+}
+
+#lecturer-card{
+    background: linear-gradient( 45deg , #ee0979, #ff6a00);
+}
+
+#subject-card{
+    background: linear-gradient( 45deg , #00b09b, #96c93d);
+}
+
+#exam-card{
+    background: linear-gradient(to right, #f7971e, #ffd200);
+}
+
+
+
+#admin-home h2{
+    font-size: 1.7rem;
+    font-weight: 700;
+    font-family: var(--font-primary);
+    text-align: center;
+    margin-block: 1em;
+    color: var(--color-primary);
+}
+
+
+.chart-container {
+    padding-block: 1em;
+    width: 70vw !important; 
+ }
+
+@media (max-width: 1215px) {
+    .chart-container{
+        width: 90vw !important; 
+    }
+}
+
+#passed-student-subject-ratio-container{
+    padding-block: 1em;
+    width: 40vw !important; 
+}
+
+
+@media (min-width: 769px) and (max-width: 1200px) {
+    #passed-student-subject-ratio-container {
+        width: 60vw !important; 
+    }
+}
+
+ @media (max-width: 768px) {
+    #passed-student-subject-ratio-container {
+        width: 80vw !important; 
+    }
 }

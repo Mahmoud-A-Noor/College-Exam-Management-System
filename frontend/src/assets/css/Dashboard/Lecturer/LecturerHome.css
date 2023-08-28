@@ -5,7 +5,8 @@
     background-color: white;
 }
 
-@media (min-width: 1023px) {
+/* @media (min-width: 1023px) { */
+@media (min-width: 1215px) {
 	#lecturer-home{
 		padding-left: 270px;
         padding-right: 40px;

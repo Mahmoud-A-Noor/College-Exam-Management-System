@@ -4,7 +4,7 @@ import AuthContext from '../../context/AuthContext';
 import '../../assets/css/Dashboard/Sidebar.css'
 
 
-export default function Sidebar({setPage}){
+export default function Sidebar({page, setPage}){
 
     const { logoutUser, userData } = useContext(AuthContext)
     
@@ -56,14 +56,14 @@ export default function Sidebar({setPage}){
                     </div>
                     <div id="sidebar-nav-items">
                         <ul>
-                            <li onClick={()=>{setPage("home")}}>
+                            <li onClick={()=>{setPage("home")}} className={page === "home" ? "active" : ""}>
                                 <i className="bi bi-house-fill"></i>
                                 <p>Home</p>
                             </li>
                         </ul>
                         
                         <ul id="sidebar-user-actions-nav-items">
-                            <li onClick={()=>{setPage("profile")}}>
+                            <li onClick={()=>{setPage("profile")}} className={page === "profile" ? "active" : ""}>
                                 <i className="bi bi-person-fill"></i>
                                 <p>Profile</p>
                             </li>

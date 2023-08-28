@@ -15,6 +15,7 @@ shell.txt
 
 # dependencies
 /frontend/node_modules
+node_modules
 /.pnp
 /frontend/.pnp.js
 
