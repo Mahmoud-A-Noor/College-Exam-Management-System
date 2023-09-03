@@ -116,6 +116,11 @@
     margin-right: 0.5em;
 }
 
+#sidebar-nav-items ul li img{
+    max-width: 35px;
+    margin-right: 0.5em;
+}
+
 #sidebar-nav-items ul li p{
     display: flex;
     align-items: center;

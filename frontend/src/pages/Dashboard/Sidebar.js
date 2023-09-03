@@ -1,17 +1,22 @@
-import { useEffect, useContext, useCallback, useRef } from 'react'
+import { useState, useEffect, useContext, useCallback, useRef } from 'react'
 import AuthContext from '../../context/AuthContext';
 
 import '../../assets/css/Dashboard/Sidebar.css'
 
+import lecturerImage from "../../assets/images/lecturer.png"
+import studentImage from "../../assets/images/student.png"
+import lecturerWhiteImage from "../../assets/images/lecturer-white.png"
+import studentWhiteImage from "../../assets/images/student-white.png"
+
 
 export default function Sidebar({page, setPage}){
+    const [isLecturersHovered, setIsLecturersHovered] = useState(false);
+    const [isStudentsHovered, setIsStudentsHovered] = useState(false);
 
     const { logoutUser, userData } = useContext(AuthContext)
     
     const sidebar_toggler_ref = useRef(null)
-    // const sidebar_toggler_ref = document.getElementById("sidebar-toggler")
     const sidebar_body_overlay_ref = useRef(null)
-    // const sidebar_body_overlay_ref = document.getElementById("sidebar-body-overlay")
 
     const toggle_sidebar = useCallback(() => {
         const sidebar = document.getElementById("sidebar");
@@ -56,14 +61,51 @@ export default function Sidebar({page, setPage}){
                     </div>
                     <div id="sidebar-nav-items">
                         <ul>
-                            <li onClick={()=>{setPage("home")}} className={page === "home" ? "active" : ""}>
+                            <li onClick={()=>{setPage("home"); toggle_sidebar();}} className={page === "home" ? "active" : ""}>
                                 <i className="bi bi-house-fill"></i>
                                 <p>Home</p>
                             </li>
+                            {
+                                userData?.user_type &&
+                                <li onClick={()=>{setPage("addUser"); toggle_sidebar();}} className={page === "addUser" ? "active" : ""}>
+                                    <i className="bi bi-person-fill-add"></i>
+                                    <p>Add User</p>
+                                </li>
+                            }
+                            {
+                                userData?.user_type &&
+                                <li
+                                    onClick={()=>{setPage('lecturers'); toggle_sidebar();}}
+                                    onMouseEnter={() => setIsLecturersHovered(true)}
+                                    onMouseLeave={() => setIsLecturersHovered(false)}
+                                    className={page === 'lecturers' ? 'active p-3' : 'p-3'}
+                                >
+                                    <img
+                                    src={isLecturersHovered ? lecturerImage : (page === 'lecturers' ? lecturerImage : lecturerWhiteImage)}
+                                    alt=""
+                                    />
+                                    <p>Lecturers</p>
+                                </li>
+                            }
+                            {
+                                userData?.user_type &&
+                                <li
+                                    onClick={()=>{setPage('students'); toggle_sidebar();}}
+                                    onMouseEnter={() => setIsStudentsHovered(true)}
+                                    onMouseLeave={() => setIsStudentsHovered(false)}
+                                    className={page === 'students' ? 'active p-3' : 'p-3'}
+                                >
+                                    <img
+                                    src={isStudentsHovered ? studentImage : (page === 'students' ? studentImage : studentWhiteImage)}
+                                    alt=""
+                                    />
+                                    <p>Students</p>
+                                </li>
+                            }
                         </ul>
                         
                         <ul id="sidebar-user-actions-nav-items">
-                            <li onClick={()=>{setPage("profile")}} className={page === "profile" ? "active" : ""}>
+                            <li onClick={()=>{setPage("profile"); toggle_sidebar();}} className={page === "profile" ? "active" : ""}>
                                 <i className="bi bi-person-fill"></i>
                                 <p>Profile</p>
                             </li>

@@ -8,7 +8,7 @@ import PassedStudentCourseRatio from "./PassedStudentCourseRatio";
 import StudentCoursePerformance from "./StudentCoursePerformance";
 import LecturerWorkload from "./LecturerWorkload";
 
-import "../../../assets/css/Dashboard/Admin/AdminHome.css"
+import "../../../../assets/css/Dashboard/Admin/AdminHome.css"
 
 
 export default function AdminHome(){

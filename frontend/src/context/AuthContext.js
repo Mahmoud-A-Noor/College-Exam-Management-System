@@ -58,7 +58,40 @@ export const AuthProvider = ({children}) => {
         }
     };
 
-    const registerUser = (e) => {
+    const addStudent = (e) => {
+        e.preventDefault();
+
+        const formData = new FormData();
+
+        const fields = e.target.elements;
+
+        for (const field of fields) {
+            const fieldName = field.getAttribute('name');
+            const fieldValue = field.value;
+
+            if (fieldName === 'img' && field.files.length > 0) {
+                formData.append(fieldName, field.files[0]);
+            } else if (fieldValue !== '') {
+                formData.append(fieldName, fieldValue);
+            }
+        }
+
+        formData.append('user_type', 'S');
+
+        axios.post(BASE_API_URL + 'account/register/', formData)
+            .then(response => {
+                loginUser(e)
+            })
+            .catch(error => {
+                console.error(error);
+                if (error.response) {
+                    setError("Another user with the same email already exists !");
+                } else {
+                    setError('An unexpected error occurred.');
+                }
+        });
+    };
+    const addLecturer = (e) => {
         e.preventDefault();
 
         const formData = new FormData();
@@ -130,9 +163,10 @@ export const AuthProvider = ({children}) => {
 
 
     let contextData = {
-        loginUser:loginUser,
-        logoutUser:logoutUser,
-        registerUser: registerUser,
+        loginUser: loginUser,
+        logoutUser: logoutUser,
+        addStudent: addStudent,
+        addLecturer: addLecturer,
         updateUser: updateUser,
         error: error,
         setError: setError,
@@ -140,7 +174,7 @@ export const AuthProvider = ({children}) => {
         setSuccess: setSuccess,
         user: user,
         userData: userData,
-        authToken:authToken,
+        authToken: authToken,
     }
 
 

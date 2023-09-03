@@ -1,10 +1,17 @@
+import { useContext } from 'react'
 import { NavLink } from 'react-router-dom';
+
+import AuthContext from "../context/AuthContext"
 
 import '../assets/css/Components/Navbar.css'
 import logo from '../assets/images/logo.png'
 
 
 export default function Navbar(){
+
+    const { userData } = useContext(AuthContext)
+    console.log(userData)
+
     return (
         <nav id="navbar" className="navbar navbar-expand-lg sticky">
         <div className="container-fluid">
@@ -29,11 +36,14 @@ export default function Navbar(){
                 <NavLink to="/request-demo" className="nav-link primary-onhover-btn">Request Demo</NavLink>
               </li>
             </ul>
-            <div id="nav-login-register">
-              <NavLink to="/login" className="nav-link gradient-text">Login</NavLink>
-              <p> / </p>
-              <NavLink to="/register" className="nav-link reverse-gradient-text">Register</NavLink>
-            </div>
+            {userData? null:
+              <div id="nav-login-register">
+                <NavLink to="/login" className="nav-link gradient-text">Login</NavLink>
+                
+                {/* <p> / </p>
+                <NavLink to="/register" className="nav-link reverse-gradient-text">Register</NavLink> */}
+              </div>
+            }
           </div>
         </div>
       </nav>

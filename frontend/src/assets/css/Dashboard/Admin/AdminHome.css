@@ -2,6 +2,7 @@
     padding-top: 6em;
     padding-inline: 1em;
     background-color: #f7f7ff;
+    min-height: 100vh;
 }
 
 /* @media (min-width: 1023px) { */
