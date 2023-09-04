@@ -32,3 +32,28 @@
     border-radius: 50px;
     background: linear-gradient(90deg,#6597CB 0%,#35369B 100%);
 }
+
+#lecturers-table-container{
+    position: relative;
+    transition: all 0.5s;
+}
+
+#lecturers-table-container > button{
+    position: absolute;
+    color: white;
+    background: linear-gradient(90deg,#6597CB 0%,#35369B 100%);
+    padding: 10px 30px;
+    border: none;
+    width: 100%;
+    font-size: 1.2rem;
+    transition: all 0.5s;
+}
+
+#lecturers-table-container:hover{
+    margin-top: 6em;
+}
+
+#lecturers-table-container:hover > button{
+    transform: translateY(-50px);
+}
+

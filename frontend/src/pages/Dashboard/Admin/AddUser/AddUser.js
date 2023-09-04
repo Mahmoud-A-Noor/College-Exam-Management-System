@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 import AddStudent from "./AddStudent"
 import AddLecturer from "./AddLecturer"
 
@@ -10,10 +8,7 @@ import lecturerRedImage from "../../../../assets/images/lecturer-red.png"
 
 import "../../../../assets/css/Dashboard/Admin/AddUser.css"
 
-export default function AddUser(){
-
-    const [userType, setUserType] = useState("student")
-
+export default function AddUser({userType, setUserType}){
     return (
         <div id="add-user">
             <div className="row justify-content-center text-center">
@@ -21,19 +16,19 @@ export default function AddUser(){
                     {
                         userType === "student"? 
                         <>
-                            <div id="user-toggler" onClick={()=>{setUserType("student")}}>
+                            <div id="user-toggler" onClick={()=>{setUserType(()=>"student");}}>
                                 <img src={studentRedImage} className="img-fluid" alt="" />
                             </div>
-                            <div id="user-toggler" onClick={()=>{setUserType("lecturer")}}>
+                            <div id="user-toggler" onClick={()=>{setUserType(()=>"lecturer");}}>
                                 <img src={lecturerImage} className="img-fluid" alt="" />
                             </div>
                         </>
                         :
                         <>
-                            <div id="user-toggler" onClick={()=>{setUserType("student")}}>
+                            <div id="user-toggler" onClick={()=>{setUserType(()=>"student");}}>
                                 <img src={studentImage} className="img-fluid" alt="" />
                             </div>
-                            <div id="user-toggler" onClick={()=>{setUserType("lecturer")}}>
+                            <div id="user-toggler" onClick={()=>{setUserType(()=>"lecturer");}}>
                                 <img src={lecturerRedImage} className="img-fluid" alt="" />
                             </div>
                         </>

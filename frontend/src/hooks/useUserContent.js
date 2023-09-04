@@ -15,6 +15,7 @@ export default function useUserContent() {
     const { userData } = useContext(AuthContext)
     const [page, setPage] = useState("home")
     const [pageContent, setPageContent] = useState(null)
+    const [userType, setUserType] = useState("student")
 
     useEffect(()=> {
         if (page === "home") {
@@ -27,7 +28,7 @@ export default function useUserContent() {
         }
         else if (page === "addUser"){
             if (userData?.user_type === "admin"){
-                setPageContent(<AddUser />)
+                setPageContent(<AddUser userType={userType} setUserType={setUserType} />)
             }
             else{
                 setPage("home")
@@ -35,7 +36,7 @@ export default function useUserContent() {
         }
         else if (page === "lecturers"){
             if (userData?.user_type === "admin"){
-                setPageContent(<Lecturers />)
+                setPageContent(<Lecturers setPage={setPage} setUserType={setUserType} />)
             }
             else{
                 setPage("home")
@@ -43,7 +44,7 @@ export default function useUserContent() {
         }
         else if (page === "students"){
             if (userData?.user_type === "admin"){
-                setPageContent(<Students />)
+                setPageContent(<Students setPage={setPage} setUserType={setUserType} />)
             }
             else{
                 setPage("home")
@@ -53,12 +54,14 @@ export default function useUserContent() {
         else if (page === "profile"){
             setPageContent(<Profile />)
         }
-    }, [page, userData])
+        // eslint-disable-next-line
+    }, [page, userData, userType])
 
     
     return {
         page,
         setPage,
         pageContent,
+        
     }
 }

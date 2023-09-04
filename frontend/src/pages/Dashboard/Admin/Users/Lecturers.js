@@ -3,7 +3,7 @@ import { MaterialReactTable } from "material-react-table";
 
 import "../../../../assets/css/Dashboard/Admin/Lecturers.css";
 
-export default function Lecturers() {
+export default function Lecturers({ setPage, setUserType }) {
   const data = [
     {
       image: "http://127.0.0.1:8000/media/images/400x600_i97xEsX.png",
@@ -80,12 +80,17 @@ export default function Lecturers() {
   return (
     <div id="lecturers">
       <h1 className="gradient-text text-center text-uppercase">Lecturers</h1>
-      <MaterialReactTable
-        columns={columns}
-        data={data}
-        enableColumnOrdering
-        enableRowSelection
-      />
+      <div id="lecturers-table-container">
+        <button onClick={()=>{
+          setPage("addUser");
+          setUserType("lecturer");
+        }}>Add Lecturer</button>
+        <MaterialReactTable
+          columns={columns}
+          data={data}
+          enableColumnOrdering
+        />
+      </div>
     </div>
   );
 }
