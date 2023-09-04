@@ -61,13 +61,23 @@ export default function Sidebar({page, setPage}){
                     </div>
                     <div id="sidebar-nav-items">
                         <ul>
-                            <li onClick={()=>{setPage("home"); toggle_sidebar();}} className={page === "home" ? "active" : ""}>
+                            <li onClick={()=>{
+                                setPage("home"); 
+                                if(window.innerWidth <= 1215){
+                                    toggle_sidebar();
+                                }
+                                }} className={page === "home" ? "active" : ""}>
                                 <i className="bi bi-house-fill"></i>
                                 <p>Home</p>
                             </li>
                             {
                                 userData?.user_type &&
-                                <li onClick={()=>{setPage("addUser"); toggle_sidebar();}} className={page === "addUser" ? "active" : ""}>
+                                <li onClick={()=>{
+                                    setPage("addUser"); 
+                                    if(window.innerWidth <= 1215){
+                                        toggle_sidebar();
+                                    }
+                                    }} className={page === "addUser" ? "active" : ""}>
                                     <i className="bi bi-person-fill-add"></i>
                                     <p>Add User</p>
                                 </li>
@@ -75,7 +85,12 @@ export default function Sidebar({page, setPage}){
                             {
                                 userData?.user_type &&
                                 <li
-                                    onClick={()=>{setPage('lecturers'); toggle_sidebar();}}
+                                    onClick={()=>{
+                                        setPage('lecturers'); 
+                                        if(window.innerWidth <= 1215){
+                                            toggle_sidebar();
+                                        }
+                                        }}
                                     onMouseEnter={() => setIsLecturersHovered(true)}
                                     onMouseLeave={() => setIsLecturersHovered(false)}
                                     className={page === 'lecturers' ? 'active p-3' : 'p-3'}
@@ -90,7 +105,12 @@ export default function Sidebar({page, setPage}){
                             {
                                 userData?.user_type &&
                                 <li
-                                    onClick={()=>{setPage('students'); toggle_sidebar();}}
+                                    onClick={()=>{
+                                        setPage('students'); 
+                                        if(window.innerWidth <= 1215){
+                                            toggle_sidebar();
+                                        }
+                                        }}
                                     onMouseEnter={() => setIsStudentsHovered(true)}
                                     onMouseLeave={() => setIsStudentsHovered(false)}
                                     className={page === 'students' ? 'active p-3' : 'p-3'}
@@ -105,7 +125,12 @@ export default function Sidebar({page, setPage}){
                         </ul>
                         
                         <ul id="sidebar-user-actions-nav-items">
-                            <li onClick={()=>{setPage("profile"); toggle_sidebar();}} className={page === "profile" ? "active" : ""}>
+                            <li onClick={()=>{
+                                setPage("profile"); 
+                                if(window.innerWidth <= 1215){
+                                    toggle_sidebar();
+                                }
+                                }} className={page === "profile" ? "active" : ""}>
                                 <i className="bi bi-person-fill"></i>
                                 <p>Profile</p>
                             </li>
