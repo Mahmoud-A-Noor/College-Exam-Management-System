@@ -7,7 +7,6 @@ import Home from './pages/Home/Home';
 import AboutUs from './pages/AboutUs/AboutUs'
 import ContactUs from './pages/ContactUs/ContactUs'
 import Login from './pages/Authentication/Login';
-import Register from './pages/Authentication/Register'
 import Dashboard from './pages/Dashboard/Dashboard';
 
 
@@ -21,8 +20,6 @@ export default function App() {
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-
             {/* <Route path='/dashboard' element={<PrivateRoute/>}>
                 <Route path='/dashboard' element={<Dashboard/>}/>
             </Route> */}
