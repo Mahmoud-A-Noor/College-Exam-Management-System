@@ -10,8 +10,8 @@ import Lecturers from "../pages/Dashboard/Admin/Users/Lecturers"
 import Students from "../pages/Dashboard/Admin/Users/Students"
 
 import LecturerHome from '../pages/Dashboard/Lecturer/Home/LecturerHome'
-import AddExam from '../pages/Dashboard/Lecturer/AddExam/AddExam'
-
+import AddExam from '../pages/Dashboard/Lecturer/Exam/AddExam/AddExam'
+import Exams from "../pages/Dashboard/Lecturer/Exam/Exams"
 import StudentHome from '../pages/Dashboard/Student/StudentHome'
 
 
@@ -19,7 +19,7 @@ export default function useUserContent() {
     const { userData } = useContext(AuthContext)
     const [page, setPage] = useState("home")
     const [pageContent, setPageContent] = useState(null)
-    const [userType, setUserType] = useState("student")
+    const [userType, setUserType] = useState("student") // used in addUser Page to select type of user to be created
 
     useEffect(()=> {
         if (page === "home") {
@@ -57,6 +57,14 @@ export default function useUserContent() {
         else if (page === "addExam"){
             if (userData?.user_type === "lecturer"){
                 setPageContent(<AddExam />)
+            }
+            else{
+                setPage("home")
+            }
+        }
+        else if (page === "exams"){
+            if (userData?.user_type === "lecturer"){
+                setPageContent(<Exams setPage={setPage} />)
             }
             else{
                 setPage("home")

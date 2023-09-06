@@ -104,6 +104,8 @@
     padding-inline: 1em;
     cursor: pointer;
     transition: all 0.5s;
+    max-height: 70px;
+    min-height: 70px;
 }
 
 #sidebar-nav-items ul li:hover, #sidebar-nav-items ul li.active{
@@ -113,12 +115,12 @@
 
 #sidebar-nav-items ul li i{
     font-size: 2rem;
-    margin-right: 0.5em;
+    margin-right: 15px;
 }
 
 #sidebar-nav-items ul li img{
     max-width: 35px;
-    margin-right: 0.5em;
+    margin-right: 15px;
 }
 
 #sidebar-nav-items ul li p{

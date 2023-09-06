@@ -9,12 +9,15 @@ import lecturerWhiteImage from "../../assets/images/lecturer-white.png"
 import studentWhiteImage from "../../assets/images/student-white.png"
 import examImage from "../../assets/images/exam.png"
 import examWhiteImage from "../../assets/images/exam-white.png"
+import examImageWithoutPen from "../../assets/images/exam-without-pen.png"
+import examWhiteImageWithoutPen from "../../assets/images/exam-white-without-pen.png"
 
 
 export default function Sidebar({page, setPage}){
     const [isLecturersHovered, setIsLecturersHovered] = useState(false);
     const [isStudentsHovered, setIsStudentsHovered] = useState(false);
-    const [isAddExamsHovered, setIsAddExamHovered] = useState(false);
+    const [isAddExamHovered, setIsAddExamHovered] = useState(false);
+    const [isExamsHovered, setIsExamsHovered] = useState(false);
 
     const { logoutUser, userData } = useContext(AuthContext)
     
@@ -142,10 +145,30 @@ export default function Sidebar({page, setPage}){
                                     className={page === 'addExam' ? 'active p-3' : 'p-3'}
                                 >
                                     <img
-                                    src={isAddExamsHovered ? examImage : (page === 'addExam' ? examImage : examWhiteImage)}
+                                    src={isAddExamHovered ? examImage : (page === 'addExam' ? examImage : examWhiteImage)}
                                     alt=""
                                     />
                                     <p>Add Exam</p>
+                                </li>
+                            }
+                            {
+                                userData?.user_type === "lecturer" &&
+                                <li
+                                    onClick={()=>{
+                                        setPage('exams'); 
+                                        if(window.innerWidth <= 1215){
+                                            toggle_sidebar();
+                                        }
+                                        }}
+                                    onMouseEnter={() => setIsExamsHovered(true)}
+                                    onMouseLeave={() => setIsExamsHovered(false)}
+                                    className={page === 'exams' ? 'active p-3' : 'p-3'}
+                                >
+                                    <img
+                                    src={isExamsHovered ? examImageWithoutPen : (page === 'exams' ? examImageWithoutPen : examWhiteImageWithoutPen)}
+                                    alt=""
+                                    />
+                                    <p>Exams</p>
                                 </li>
                             }
                         </ul>
