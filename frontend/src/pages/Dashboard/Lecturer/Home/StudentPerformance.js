@@ -1,8 +1,11 @@
+import React from 'react';
 import { Pie } from 'react-chartjs-2';
 // eslint-disable-next-line
 import { Chart as ChartJS} from "chart.js/auto"
 
-const PassedStudentCourseRatio = ({passedStudentCourseRatioData}) => {
+
+export default function ExamScheduleOverview({studentPerformanceData}) {
+
 
     const options = {
         // maintainAspectRatio: false,
@@ -34,18 +37,15 @@ const PassedStudentCourseRatio = ({passedStudentCourseRatioData}) => {
             },
         },
     };
-    
 
-  return (
-    <>
-        <h2>Passed Student/Course Ratio</h2>
+    return (
+        <>
+        <h2>Student Performance</h2>
         <Pie
             className='chart'
-            data={passedStudentCourseRatioData} 
+            data={studentPerformanceData} 
             options={options}
         />
     </>
-  );
+    );
 };
-
-export default PassedStudentCourseRatio;

@@ -6,9 +6,16 @@ import { Chart as ChartJS} from "chart.js/auto"
 const LecturerWorkload = ({lecturerWorloadData}) => {
 
     useEffect(() => {
-        const sum = lecturerWorloadData.datasets[0].data.reduce((acc, val) => acc + val, 0);
-        const max_custom_average = (sum / lecturerWorloadData.datasets[0].data.length)+Math.min(...lecturerWorloadData.datasets[0].data);
-        const min_custom_average = (sum / lecturerWorloadData.datasets[0].data.length)-Math.min(...lecturerWorloadData.datasets[0].data);
+      const data = lecturerWorloadData.datasets[0].data;
+      const sum = data.reduce((acc, val) => acc + val, 0);
+  
+      // Calculate the dynamic offset as a percentage (e.g., 10%) of the range of data values
+      const range = Math.max(...data) - Math.min(...data);
+      const offsetPercentage = 0.10; // You can adjust this percentage as needed
+      const dynamicOffset = range * offsetPercentage;
+  
+      const max_custom_average = (sum / data.length) + dynamicOffset;
+      const min_custom_average = (sum / data.length) - dynamicOffset;
     
         const colors = lecturerWorloadData.datasets[0].data.map((value) => {
             if (value > max_custom_average) {

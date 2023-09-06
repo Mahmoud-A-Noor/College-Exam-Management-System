@@ -134,7 +134,7 @@ export default function AdminHome(){
                   </div>
                 </div>
                 <div className="tab-pane fade" id="nav-passed-student-subject-ratio" role="tabpanel" aria-labelledby="nav-passed-student-subject-ratio-tab" tabIndex="0">
-                  <div id="passed-student-subject-ratio-container">
+                  <div className="pie-chart-container">
                     <PassedStudentCourseRatio passedStudentCourseRatioData={passedStudentCourseRatioData} />
                   </div>
                 </div>

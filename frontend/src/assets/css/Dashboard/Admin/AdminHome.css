@@ -72,33 +72,3 @@
     margin-block: 1em;
     color: var(--color-primary);
 }
-
-
-.chart-container {
-    padding-block: 1em;
-    width: 70vw !important; 
- }
-
-@media (max-width: 1215px) {
-    .chart-container{
-        width: 90vw !important; 
-    }
-}
-
-#passed-student-subject-ratio-container{
-    padding-block: 1em;
-    width: 40vw !important; 
-}
-
-
-@media (min-width: 769px) and (max-width: 1200px) {
-    #passed-student-subject-ratio-container {
-        width: 60vw !important; 
-    }
-}
-
- @media (max-width: 768px) {
-    #passed-student-subject-ratio-container {
-        width: 80vw !important; 
-    }
-}

@@ -3,11 +3,15 @@ import { useState, useEffect, useContext } from 'react'
 import AuthContext from '../context/AuthContext'
 
 import Profile from "../pages/Dashboard/Profile"
+
 import AdminHome from '../pages/Dashboard/Admin/Home/AdminHome'
 import AddUser from '../pages/Dashboard/Admin/AddUser/AddUser'
 import Lecturers from "../pages/Dashboard/Admin/Users/Lecturers"
 import Students from "../pages/Dashboard/Admin/Users/Students"
-import LecturerHome from '../pages/Dashboard/Lecturer/LecturerHome'
+
+import LecturerHome from '../pages/Dashboard/Lecturer/Home/LecturerHome'
+import AddExam from '../pages/Dashboard/Lecturer/AddExam/AddExam'
+
 import StudentHome from '../pages/Dashboard/Student/StudentHome'
 
 
@@ -45,6 +49,14 @@ export default function useUserContent() {
         else if (page === "students"){
             if (userData?.user_type === "admin"){
                 setPageContent(<Students setPage={setPage} setUserType={setUserType} />)
+            }
+            else{
+                setPage("home")
+            }
+        }
+        else if (page === "addExam"){
+            if (userData?.user_type === "lecturer"){
+                setPageContent(<AddExam />)
             }
             else{
                 setPage("home")

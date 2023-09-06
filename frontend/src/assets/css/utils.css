@@ -101,6 +101,38 @@ ul{
     border: 1px solid var(--color-primary);
 }
 
+
+
+
+.chart-container {
+    padding-block: 1em;
+    width: 70vw !important; 
+ }
+
+@media (max-width: 1215px) {
+    .chart-container{
+        width: 90vw !important; 
+    }
+}
+
+.pie-chart-container{
+    padding-block: 1em;
+    width: 40vw !important; 
+}
+
+
+@media (min-width: 769px) and (max-width: 1200px) {
+    .pie-chart-container{
+        width: 60vw !important; 
+    }
+}
+
+ @media (max-width: 768px) {
+    .pie-chart-container{
+        width: 80vw !important; 
+    }
+}
+
 /* background: transparent linear-gradient(90deg,#6597CB 0%,#35369B 100%) 0% 0% no-repeat; */
 
 /* compatible colors */

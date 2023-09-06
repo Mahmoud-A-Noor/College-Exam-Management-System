@@ -7,11 +7,14 @@ import lecturerImage from "../../assets/images/lecturer.png"
 import studentImage from "../../assets/images/student.png"
 import lecturerWhiteImage from "../../assets/images/lecturer-white.png"
 import studentWhiteImage from "../../assets/images/student-white.png"
+import examImage from "../../assets/images/exam.png"
+import examWhiteImage from "../../assets/images/exam-white.png"
 
 
 export default function Sidebar({page, setPage}){
     const [isLecturersHovered, setIsLecturersHovered] = useState(false);
     const [isStudentsHovered, setIsStudentsHovered] = useState(false);
+    const [isAddExamsHovered, setIsAddExamHovered] = useState(false);
 
     const { logoutUser, userData } = useContext(AuthContext)
     
@@ -60,6 +63,9 @@ export default function Sidebar({page, setPage}){
                         <div className="sidebar-divider"></div>
                     </div>
                     <div id="sidebar-nav-items">
+
+
+
                         <ul>
                             <li onClick={()=>{
                                 setPage("home"); 
@@ -71,7 +77,7 @@ export default function Sidebar({page, setPage}){
                                 <p>Home</p>
                             </li>
                             {
-                                userData?.user_type &&
+                                userData?.user_type === "admin" &&
                                 <li onClick={()=>{
                                     setPage("addUser"); 
                                     if(window.innerWidth <= 1215){
@@ -83,7 +89,7 @@ export default function Sidebar({page, setPage}){
                                 </li>
                             }
                             {
-                                userData?.user_type &&
+                                userData?.user_type === "admin" &&
                                 <li
                                     onClick={()=>{
                                         setPage('lecturers'); 
@@ -103,7 +109,7 @@ export default function Sidebar({page, setPage}){
                                 </li>
                             }
                             {
-                                userData?.user_type &&
+                                userData?.user_type === "admin" &&
                                 <li
                                     onClick={()=>{
                                         setPage('students'); 
@@ -122,8 +128,30 @@ export default function Sidebar({page, setPage}){
                                     <p>Students</p>
                                 </li>
                             }
+                            {
+                                userData?.user_type === "lecturer" &&
+                                <li
+                                    onClick={()=>{
+                                        setPage('addExam'); 
+                                        if(window.innerWidth <= 1215){
+                                            toggle_sidebar();
+                                        }
+                                        }}
+                                    onMouseEnter={() => setIsAddExamHovered(true)}
+                                    onMouseLeave={() => setIsAddExamHovered(false)}
+                                    className={page === 'addExam' ? 'active p-3' : 'p-3'}
+                                >
+                                    <img
+                                    src={isAddExamsHovered ? examImage : (page === 'addExam' ? examImage : examWhiteImage)}
+                                    alt=""
+                                    />
+                                    <p>Add Exam</p>
+                                </li>
+                            }
                         </ul>
                         
+
+
                         <ul id="sidebar-user-actions-nav-items">
                             <li onClick={()=>{
                                 setPage("profile"); 
