@@ -96,6 +96,20 @@
     background: linear-gradient(90deg,#35369B 0%,#6597CB 25%,#6597CB 75%, #35369B 100%);
 }
 
+#sidebar-nav-items{
+    height: calc(100vh - 257px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+}
+
+@media (min-width: 1215px) {
+    #sidebar-nav-items{
+        height: calc(100vh - 287px);
+    }
+}
+
 #sidebar-nav-items ul li{
     display: flex;
     align-items: center;
@@ -104,8 +118,7 @@
     padding-inline: 1em;
     cursor: pointer;
     transition: all 0.5s;
-    max-height: 70px;
-    min-height: 70px;
+    height: 70px;
 }
 
 #sidebar-nav-items ul li:hover, #sidebar-nav-items ul li.active{
@@ -129,7 +142,5 @@
 }
 
 #sidebar-user-actions-nav-items{
-    position: absolute;
-    bottom: 0px;
     width: 100%;
 }

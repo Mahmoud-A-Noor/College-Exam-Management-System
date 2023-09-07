@@ -50,7 +50,7 @@ export const AuthProvider = ({children}) => {
             }).catch(error => {
                 console.error(error);
                 if (error.response) {
-                    setError(error.response.error);
+                    setError(error.response.data.error);
                 } else {
                     setError('An unexpected error occurred.');
                 }

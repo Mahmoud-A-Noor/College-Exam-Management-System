@@ -1,4 +1,5 @@
 
+import "../../../../../assets/css/Dashboard/Lecturer/AddExam.css"
 
 export default function AddExam(){
     return (
