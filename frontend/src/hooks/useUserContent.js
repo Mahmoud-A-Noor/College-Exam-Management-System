@@ -2,6 +2,9 @@ import { useState, useEffect, useContext } from 'react'
 
 import AuthContext from '../context/AuthContext'
 
+import { AddExamProvider } from "../context/AddExamContext"
+
+
 import Profile from "../pages/Dashboard/Profile"
 
 import AdminHome from '../pages/Dashboard/Admin/Home/AdminHome'
@@ -56,7 +59,11 @@ export default function useUserContent() {
         }
         else if (page === "addExam"){
             if (userData?.user_type === "lecturer"){
-                setPageContent(<AddExam />)
+                setPageContent(
+                <AddExamProvider>
+                    <AddExam />
+                </AddExamProvider>
+                )
             }
             else{
                 setPage("home")

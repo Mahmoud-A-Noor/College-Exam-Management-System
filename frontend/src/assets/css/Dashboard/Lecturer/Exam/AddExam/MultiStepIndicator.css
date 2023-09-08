@@ -1,0 +1,66 @@
+#multi-step-indicator{
+    display: flex;
+    align-items: center;
+    max-width: 700px;
+    margin-inline: auto;
+    margin-top: 2em;
+}
+
+.indicator-point{
+    position: relative;
+    width: 20px;
+    height: 20px;
+    background-color: #6597CB;
+    transition: all 0.7s;
+}
+
+.indicator-point::after{
+    position: absolute;
+    bottom: -40px;    
+    left: 50%;
+    transform: translateX(-50%);
+    content: attr(data-step);
+
+    font-family: var(--font-primary);
+    font-size: 1.3rem;
+    font-weight: 500;
+    
+    transition: all 0.7s;
+}
+
+.indicator-point.active{
+    width: 30px;
+    height: 30px;
+    background-color: #333399;
+}
+
+.indicator-point.active::after{
+    font-size: 1.45rem;
+}
+
+.indicator-point.passed{
+    background-color: #333399;
+}
+
+.indicator-point.passed::after{
+    font-size: 1.3rem;
+}
+
+
+.indicator-line{
+    flex-grow: 1;
+    height: 5px;
+    background-color: #6597CB;
+}
+
+.indicator-line .filler{
+    height: 100%;
+    width: 0%;
+    background-color: #6597CB;
+    transition: all 0.7s;
+}
+
+.indicator-line.active .filler{
+    width: 100%;
+    background-color: #333399;
+}

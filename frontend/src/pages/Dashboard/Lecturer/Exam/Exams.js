@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { MaterialReactTable } from "material-react-table";
 
-import "../../../../assets/css/Dashboard/Lecturer/Exams.css";
+import "../../../../assets/css/Dashboard/Lecturer/Exam/Exams.css";
 
 export default function Exams({ setPage }) {
 
