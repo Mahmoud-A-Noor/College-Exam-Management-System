@@ -88,6 +88,20 @@ ul{
     opacity: 1 !important;
 }
 
+
+.custom-divider{
+    margin-block: 1em;
+    height: 1.5px;
+    background: linear-gradient(90deg,#35369B 0%,#6597CB 25%,#6597CB 75%, #35369B 100%);
+}
+
+.custom-divider2{
+    margin-block: 2em;
+    height: 1.5px;
+    background: linear-gradient(90deg,#35369B 0%,#6597CB 25%,#6597CB 75%, #35369B 100%);
+}
+
+
 .my-form-control{
     padding: 12px 15px;
     font-size: 0.9rem;

@@ -6,6 +6,7 @@ migrations
 __pycache__
 db.sqlite3
 .env
+backend/env/
 media
 shell.txt
 

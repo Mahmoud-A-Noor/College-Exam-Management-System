@@ -2,19 +2,18 @@ import { useState, useEffect, useContext } from 'react'
 
 import AuthContext from '../context/AuthContext'
 
-import { AddExamProvider } from "../context/AddExamContext"
-
-
 import Profile from "../pages/Dashboard/Profile"
 
 import AdminHome from '../pages/Dashboard/Admin/Home/AdminHome'
 import AddUser from '../pages/Dashboard/Admin/AddUser/AddUser'
-import Lecturers from "../pages/Dashboard/Admin/Users/Lecturers"
-import Students from "../pages/Dashboard/Admin/Users/Students"
+import Lecturers from "../pages/Dashboard/Admin/Tables/Lecturers"
+import Students from "../pages/Dashboard/Admin/Tables/Students"
+import Courses from '../pages/Dashboard/Admin/Tables/Courses'
 
 import LecturerHome from '../pages/Dashboard/Lecturer/Home/LecturerHome'
 import AddExam from '../pages/Dashboard/Lecturer/Exam/AddExam/AddExam'
 import Exams from "../pages/Dashboard/Lecturer/Exam/Exams"
+
 import StudentHome from '../pages/Dashboard/Student/StudentHome'
 
 
@@ -57,13 +56,17 @@ export default function useUserContent() {
                 setPage("home")
             }
         }
+        else if (page === "courses"){
+            if (userData?.user_type === "admin"){
+                setPageContent(<Courses />)
+            }
+            else{
+                setPage("home")
+            }
+        }
         else if (page === "addExam"){
             if (userData?.user_type === "lecturer"){
-                setPageContent(
-                <AddExamProvider>
-                    <AddExam />
-                </AddExamProvider>
-                )
+                setPageContent(<AddExam />)
             }
             else{
                 setPage("home")

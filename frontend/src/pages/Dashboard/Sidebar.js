@@ -11,6 +11,8 @@ import examImage from "../../assets/images/exam.png"
 import examWhiteImage from "../../assets/images/exam-white.png"
 import examImageWithoutPen from "../../assets/images/exam-without-pen.png"
 import examWhiteImageWithoutPen from "../../assets/images/exam-white-without-pen.png"
+import coursesImage from "../../assets/images/courses.png"
+import coursesWhiteImage from "../../assets/images/courses-white.png"
 
 
 export default function Sidebar({page, setPage}){
@@ -18,6 +20,7 @@ export default function Sidebar({page, setPage}){
     const [isStudentsHovered, setIsStudentsHovered] = useState(false);
     const [isAddExamHovered, setIsAddExamHovered] = useState(false);
     const [isExamsHovered, setIsExamsHovered] = useState(false);
+    const [isCoursesHovered, setIsCoursesHovered] = useState(false);
 
     const { logoutUser, userData } = useContext(AuthContext)
     
@@ -63,7 +66,7 @@ export default function Sidebar({page, setPage}){
                             <p>{userData?.first_name} {userData?.last_name}</p>
                             <small>{userData?.user_type}</small>
                         </div>
-                        <div className="sidebar-divider"></div>
+                        <div className="custom-divider"></div>
                     </div>
                     <div id="sidebar-nav-items">
 
@@ -129,6 +132,26 @@ export default function Sidebar({page, setPage}){
                                     alt=""
                                     />
                                     <p>Students</p>
+                                </li>
+                            }
+                            {
+                                userData?.user_type === "admin" &&
+                                <li
+                                    onClick={()=>{
+                                        setPage('courses'); 
+                                        if(window.innerWidth <= 1215){
+                                            toggle_sidebar();
+                                        }
+                                        }}
+                                    onMouseEnter={() => setIsCoursesHovered(true)}
+                                    onMouseLeave={() => setIsCoursesHovered(false)}
+                                    className={page === 'courses' ? 'active p-3' : 'p-3'}
+                                >
+                                    <img
+                                    src={isCoursesHovered ? coursesImage : (page === 'courses' ? coursesImage : coursesWhiteImage)}
+                                    alt=""
+                                    />
+                                    <p>Courses</p>
                                 </li>
                             }
                             {

@@ -1,7 +1,4 @@
-import { useContext } from "react";
-
-
-import AddExamContext from "../../../../../context/AddExamContext"
+import useAddExamStates from "../../../../../hooks/useAddExamStates"
 
 import "../../../../../assets/css/Dashboard/Lecturer/Exam/AddExam/AddExam.css"
 
@@ -10,7 +7,7 @@ import MultiStepIndicator from "./MultiStepIndicator"
 
 export default function AddExam(){
 
-    const { currentStep, setCurrentStep } = useContext(AddExamContext)
+    const { currentStep, setCurrentStep, stepContent } = useAddExamStates();
 
     
     // const formSteps = [
@@ -31,7 +28,8 @@ export default function AddExam(){
     return (
         <div id="add-exam">
             <MultiStepIndicator currentStep={currentStep} />
-            <button onClick={()=>{
+            {stepContent}
+            {/* <button onClick={()=>{
                 setCurrentStep(()=>currentStep+1)
             }}>
                 Next
@@ -40,7 +38,7 @@ export default function AddExam(){
                 setCurrentStep(()=>currentStep-1)
             }}>
                 Back
-            </button>
+            </button> */}
         </div>
     )
 }

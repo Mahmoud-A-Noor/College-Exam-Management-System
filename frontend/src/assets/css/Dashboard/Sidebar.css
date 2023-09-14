@@ -90,12 +90,6 @@
     font-weight: 400;
 }
 
-.sidebar-divider{
-    margin-block: 1em;
-    height: 1.5px;
-    background: linear-gradient(90deg,#35369B 0%,#6597CB 25%,#6597CB 75%, #35369B 100%);
-}
-
 #sidebar-nav-items{
     height: calc(100vh - 257px);
     display: flex;
