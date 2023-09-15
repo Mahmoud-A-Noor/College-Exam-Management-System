@@ -166,12 +166,12 @@ export default function Step1({setCurrentStep, setExamRelatedInfo, examRelatedIn
                   {
                     displayButtons &&
                     <div className="row text-center">
-                      <div className="col-lg-6 col-md-9 col-sm-12 ms-auto me-auto">
+                      <div className="col-lg-6 col-md-9 col-sm-12 mx-auto">
                           <button id="step1-submit">
                               Next
                           </button>
                       </div>
-                  </div>
+                    </div>
                   }
                   
               </form>

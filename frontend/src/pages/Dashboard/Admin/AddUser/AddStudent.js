@@ -28,7 +28,7 @@ export default function Register(){
                                     </div>
                                 )}
                                 <h3 className='text-center'>Add Student</h3>
-                                <div className='row'>
+                                <div className='row justify-content-center'>
                                     <div className='col-lg-6 col-md-12'>
                                         <label htmlFor="first_name" className="form-label">First Name</label>
                                         <input id='first_name' name='first_name' className='my-form-control' type='text' placeholder='First Name' required />
@@ -81,7 +81,7 @@ export default function Register(){
                                         <label htmlFor="img" className="form-label">Profile Image</label>
                                         <input id='img' name="img" className='form-control' type="file" />
                                     </div>
-                                    <div className='col-6'>
+                                    <div className='col-lg-6 col-md-10 col-sm-12'>
                                         <button type='submit'>Add Student</button>
                                     </div>
                                 </div>

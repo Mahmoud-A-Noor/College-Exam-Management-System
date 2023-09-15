@@ -8,6 +8,7 @@ import AdminHome from '../pages/Dashboard/Admin/Home/AdminHome'
 import AddUser from '../pages/Dashboard/Admin/AddUser/AddUser'
 import Lecturers from "../pages/Dashboard/Admin/Tables/Lecturers"
 import Students from "../pages/Dashboard/Admin/Tables/Students"
+import AddCourse from '../pages/Dashboard/Admin/AddCourse/AddCourse'
 import Courses from '../pages/Dashboard/Admin/Tables/Courses'
 
 import LecturerHome from '../pages/Dashboard/Lecturer/Home/LecturerHome'
@@ -56,9 +57,17 @@ export default function useUserContent() {
                 setPage("home")
             }
         }
+        else if (page === "addCourse"){
+            if (userData?.user_type === "admin"){
+                setPageContent(<AddCourse />)
+            }
+            else{
+                setPage("home")
+            }
+        }
         else if (page === "courses"){
             if (userData?.user_type === "admin"){
-                setPageContent(<Courses />)
+                setPageContent(<Courses setPage={setPage} />)
             }
             else{
                 setPage("home")

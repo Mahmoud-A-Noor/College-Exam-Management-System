@@ -5,7 +5,7 @@ import { MaterialReactTable } from "material-react-table";
 import "../../../../assets/css/Dashboard/Admin/Courses.css"
 
 
-export default function Courses(){
+export default function Courses({setPage}){
 
     const data = [
         {
@@ -72,13 +72,13 @@ export default function Courses(){
         <div id="courses">
             <h1 className="gradient-text text-center text-uppercase">Courses</h1>
             <div id="courses-table-container">
-                {/* <button
+                <button
                 onClick={() => {
-                    setPage("addExam");
+                    setPage("addCourse");
                 }}
                 >
-                Add Exam
-                </button> */}
+                Add Course
+                </button>
                 <MaterialReactTable columns={columns} data={data} enableColumnOrdering />
             </div>
         </div>

@@ -33,7 +33,7 @@
     background: linear-gradient(90deg,#6597CB 0%,#35369B 100%);
 }
 
-/* #courses-table-container{
+#courses-table-container{
     position: relative;
     transition: all 0.5s;
 }
@@ -55,5 +55,5 @@
 
 #courses-table-container:hover > button{
     transform: translateY(-50px);
-} */
+}
 

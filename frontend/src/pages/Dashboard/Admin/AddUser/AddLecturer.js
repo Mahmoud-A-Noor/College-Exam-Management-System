@@ -71,7 +71,7 @@ export default function AddLecturer(){
                                         <label htmlFor="img" className="form-label">Profile Image</label>
                                         <input name="img" className='form-control' type="file" />
                                     </div>
-                                    <div className='col-6'>
+                                    <div className='col-lg-6 col-md-10 col-sm-12'>
                                         <button type='submit'>Add Lecturer</button>
                                     </div>
                                 </div>
