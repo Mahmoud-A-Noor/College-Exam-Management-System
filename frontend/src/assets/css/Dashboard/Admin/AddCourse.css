@@ -12,7 +12,9 @@
 	#add-course{
 		padding-left: 250px;
         padding-right: 20px;
-        padding-block: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 	}
 }
 

@@ -14,6 +14,7 @@ import Courses from '../pages/Dashboard/Admin/Tables/Courses'
 import LecturerHome from '../pages/Dashboard/Lecturer/Home/LecturerHome'
 import AddExam from '../pages/Dashboard/Lecturer/Exam/AddExam/AddExam'
 import Exams from "../pages/Dashboard/Lecturer/Exam/Exams"
+import LecturerCourses from "../pages/Dashboard/Lecturer/Courses"
 
 import StudentHome from '../pages/Dashboard/Student/StudentHome'
 
@@ -84,6 +85,14 @@ export default function useUserContent() {
         else if (page === "exams"){
             if (userData?.user_type === "lecturer"){
                 setPageContent(<Exams setPage={setPage} />)
+            }
+            else{
+                setPage("home")
+            }
+        }
+        else if (page === "lecturerCourses"){
+            if (userData?.user_type === "lecturer"){
+                setPageContent(<LecturerCourses />)
             }
             else{
                 setPage("home")

@@ -59,7 +59,7 @@ export default function AddCourse(){
                 <div className='row align-items-center justify-content-center'>
                     <div className='col-lg-8 col-md-12'>
                         <form onSubmit={handleSubmit}>
-                            <h3 className='text-center'>Add Student</h3>
+                            <h3 className='text-center'>Add Course</h3>
                             <TextField
                                 label="Course Name"
                                 variant="outlined"

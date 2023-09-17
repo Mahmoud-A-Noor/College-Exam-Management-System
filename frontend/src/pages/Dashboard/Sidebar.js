@@ -23,6 +23,7 @@ export default function Sidebar({page, setPage}){
     const [isAddExamHovered, setIsAddExamHovered] = useState(false);
     const [isExamsHovered, setIsExamsHovered] = useState(false);
     const [isCoursesHovered, setIsCoursesHovered] = useState(false);
+    const [isLecturerCoursesHovered, setIsLecturerCoursesHovered] = useState(false);
     const [isAddCoursesHovered, setIsAddCoursesHovered] = useState(false);
 
     const { logoutUser, userData } = useContext(AuthContext)
@@ -215,6 +216,26 @@ export default function Sidebar({page, setPage}){
                                     alt=""
                                     />
                                     <p>Exams</p>
+                                </li>
+                            }
+                            {
+                                userData?.user_type === "lecturer" &&
+                                <li
+                                    onClick={()=>{
+                                        setPage('lecturerCourses'); 
+                                        if(window.innerWidth <= 1215){
+                                            toggle_sidebar();
+                                        }
+                                        }}
+                                    onMouseEnter={() => setIsLecturerCoursesHovered(true)}
+                                    onMouseLeave={() => setIsLecturerCoursesHovered(false)}
+                                    className={page === 'lecturerCourses' ? 'active p-3' : 'p-3'}
+                                >
+                                    <img
+                                    src={isLecturerCoursesHovered ? coursesImage : (page === 'lecturerCourses' ? coursesImage : coursesWhiteImage)}
+                                    alt=""
+                                    />
+                                    <p>Courses</p>
                                 </li>
                             }
                         </ul>
