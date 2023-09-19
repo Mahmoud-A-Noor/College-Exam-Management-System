@@ -56,6 +56,14 @@ ul{
     background: linear-gradient(90deg,#6597CB 0%,#35369B 100%);
     padding: 10px 30px;
     border-radius: 50px;
+    border: none;
+}
+
+.primary-default-btn{
+    color: white;
+    background: linear-gradient(90deg,#6597CB 0%,#35369B 100%);
+    padding: 10px 30px;
+    border: none;
 }
 
 
@@ -145,6 +153,19 @@ ul{
     .pie-chart-container{
         width: 80vw !important; 
     }
+}
+
+
+.table-bg-success{
+    --bs-table-bg: rgb(21, 190, 21);
+}
+
+.table-bg-danger{
+    --bs-table-bg: rgb(220, 87, 87);
+}
+
+.table-bg-primary{
+    --bs-table-bg: rgb(87, 87, 220);
 }
 
 /* background: transparent linear-gradient(90deg,#6597CB 0%,#35369B 100%) 0% 0% no-repeat; */

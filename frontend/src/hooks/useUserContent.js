@@ -16,7 +16,7 @@ import AddExam from '../pages/Dashboard/Lecturer/Exam/AddExam/AddExam'
 import Exams from "../pages/Dashboard/Lecturer/Exam/Exams"
 import LecturerCourses from "../pages/Dashboard/Lecturer/Courses"
 
-import StudentHome from '../pages/Dashboard/Student/StudentHome'
+import StudentHome from '../pages/Dashboard/Student/Home/StudentHome'
 
 
 export default function useUserContent() {

@@ -3,7 +3,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1em;
 }
 
 @media (max-width: 767px) {
@@ -12,9 +11,6 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding-top: 4em;
-        padding-bottom: 2em;
-        padding-inline: 1em;
     }
 }
 
@@ -23,8 +19,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10rem;
-    width: 10rem;
+    height: 5rem;
+    width: 5rem;
     border-radius: 50%;
     background: conic-gradient(from 0deg at 50% 50%, #7d2ae8 2deg, #ededed 0deg);
 }   
@@ -35,8 +31,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 15rem;
-        width: 15rem;
+        height: 7rem;
+        width: 7rem;
         border-radius: 50%;
         background: conic-gradient(from 0deg at 50% 50%, #7d2ae8 2deg, #ededed 0deg);
     }   

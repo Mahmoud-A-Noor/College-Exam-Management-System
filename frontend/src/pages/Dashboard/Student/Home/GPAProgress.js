@@ -2,21 +2,16 @@ import { Line } from 'react-chartjs-2';
 // eslint-disable-next-line
 import { Chart as ChartJS} from "chart.js/auto"
 
-const PassedStudents = ({passedStudentsData}) => {
-
+export default function GPAProgress({gpaProgressData}){
     const chartCallback = (chart) => {
         const ctx = chart.ctx;
 
         const gradientFill1 = ctx.createLinearGradient(0, 0, 0, 300);
-        gradientFill1.addColorStop(0, 'rgba(23, 234, 217)');
-        gradientFill1.addColorStop(1, 'rgba(96, 120, 234)');
-
-        const gradientFill2 = ctx.createLinearGradient(0, 0, 0, 300);
-        gradientFill2.addColorStop(0, 'rgba(248, 7, 89)');
-        gradientFill2.addColorStop(1, 'rgba(188, 78, 156)');
+        gradientFill1.addColorStop(0, 'rgb(39, 165, 39)');
+        gradientFill1.addColorStop(0.5, 'rgba(96, 120, 234)');
+        gradientFill1.addColorStop(1, 'rgba(188, 78, 156)');
 
         chart.data.datasets[0].backgroundColor = gradientFill1;
-        chart.data.datasets[1].backgroundColor = gradientFill2;
     };
 
 
@@ -35,7 +30,7 @@ const PassedStudents = ({passedStudentsData}) => {
           },
           plugins: {
             legend: {
-              display: true,
+              display: false,
 			      labels: {
                 boxWidth:40
               }
@@ -54,9 +49,9 @@ const PassedStudents = ({passedStudentsData}) => {
 
   return (
     <>
-        <h2>Passed/Failed Students Per Semester</h2>
+        <h2>GPA Progress</h2>
         <Line id='passed-students'
-            data={passedStudentsData}
+            data={gpaProgressData}
             options={options}
             plugins={[{
                 beforeInit: chartCallback
@@ -64,6 +59,4 @@ const PassedStudents = ({passedStudentsData}) => {
         />
     </>
   );
-};
-
-export default PassedStudents;
+}
