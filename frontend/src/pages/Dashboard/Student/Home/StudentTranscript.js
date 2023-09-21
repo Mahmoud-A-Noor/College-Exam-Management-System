@@ -69,7 +69,7 @@ export default function StudentTranscript({ studentTranscriptData }) {
   return (
     <div>
       <div className='row justify-content-center'>
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        <div className="col-lg-4 col-md-6 col-sm-12">
           <button className="primary-default-btn mb-2 w-100" onClick={generatePDF}>
             Download My Transcript
           </button>
@@ -80,7 +80,7 @@ export default function StudentTranscript({ studentTranscriptData }) {
         <table className="table">
           <thead>
             <tr>
-              <th style={{"font-size":"1.3rem"}} colSpan="2" className="table-info text-center">Student Information</th>
+              <th style={{"fontSize":"1.3rem"}} colSpan="2" className="table-info text-center">Student Information</th>
             </tr>
           </thead>
           <tbody>
@@ -96,7 +96,7 @@ export default function StudentTranscript({ studentTranscriptData }) {
           {studentTranscriptData.data.map((yearData, index) => (
             <tbody key={index}>
               <tr>
-                <th style={{"font-size":"1.2rem"}} colSpan="2" className="table-info text-center">{yearData.year}</th>
+                <th style={{"fontSize":"1.2rem"}} colSpan="2" className="table-info text-center">{yearData.year}</th>
               </tr>
               {yearData.courses.map((course, courseIndex) => (
                 <tr className={course.degree > 90?"table-bg-success":course.degree >= 50?"table-bg-primary":"table-bg-danger"} key={courseIndex}>

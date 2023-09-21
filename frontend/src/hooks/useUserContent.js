@@ -17,6 +17,8 @@ import Exams from "../pages/Dashboard/Lecturer/Exam/Exams"
 import LecturerCourses from "../pages/Dashboard/Lecturer/Courses"
 
 import StudentHome from '../pages/Dashboard/Student/Home/StudentHome'
+import EnrollCourses from '../pages/Dashboard/Student/EnrollCourses'
+import EnterExam from '../pages/Dashboard/Student/EnterExam'
 
 
 export default function useUserContent() {
@@ -93,6 +95,22 @@ export default function useUserContent() {
         else if (page === "lecturerCourses"){
             if (userData?.user_type === "lecturer"){
                 setPageContent(<LecturerCourses />)
+            }
+            else{
+                setPage("home")
+            }
+        }
+        else if (page === "enrollCourses"){
+            if (userData?.user_type === "student"){
+                setPageContent(<EnrollCourses />)
+            }
+            else{
+                setPage("home")
+            }
+        }
+        else if (page === "enterExam"){
+            if (userData?.user_type === "student"){
+                setPageContent(<EnterExam />)
             }
             else{
                 setPage("home")

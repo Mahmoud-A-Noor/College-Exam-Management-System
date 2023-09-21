@@ -15,6 +15,8 @@ import addCourseImage from "../../assets/images/add-course.png"
 import addCourseWhiteImage from "../../assets/images/add-course-white.png"
 import coursesImage from "../../assets/images/courses.png"
 import coursesWhiteImage from "../../assets/images/courses-white.png"
+import EnterExamImage from "../../assets/images/enter-exam.png"
+import EnterExamWhiteImage from "../../assets/images/enter-exam-white.png"
 
 
 export default function Sidebar({page, setPage}){
@@ -25,6 +27,8 @@ export default function Sidebar({page, setPage}){
     const [isCoursesHovered, setIsCoursesHovered] = useState(false);
     const [isLecturerCoursesHovered, setIsLecturerCoursesHovered] = useState(false);
     const [isAddCoursesHovered, setIsAddCoursesHovered] = useState(false);
+    const [isEnrollCoursesHovered, setIsEnrollCoursesHovered] = useState(false);
+    const [isEnterExamHovered, setIsEnterExamHovered] = useState(false);
 
     const { logoutUser, userData } = useContext(AuthContext)
     
@@ -236,6 +240,46 @@ export default function Sidebar({page, setPage}){
                                     alt=""
                                     />
                                     <p>Courses</p>
+                                </li>
+                            }
+                            {
+                                userData?.user_type === "student" &&
+                                <li
+                                    onClick={()=>{
+                                        setPage('enrollCourses'); 
+                                        if(window.innerWidth <= 1215){
+                                            toggle_sidebar();
+                                        }
+                                        }}
+                                    onMouseEnter={() => setIsEnrollCoursesHovered(true)}
+                                    onMouseLeave={() => setIsEnrollCoursesHovered(false)}
+                                    className={page === 'enrollCourses' ? 'active p-3' : 'p-3'}
+                                >
+                                    <img
+                                    src={isEnrollCoursesHovered ? coursesImage : (page === 'enrollCourses' ? coursesImage : coursesWhiteImage)}
+                                    alt=""
+                                    />
+                                    <p>Enroll Courses</p>
+                                </li>
+                            }
+                            {
+                                userData?.user_type === "student" &&
+                                <li
+                                    onClick={()=>{
+                                        setPage('enterExam'); 
+                                        if(window.innerWidth <= 1215){
+                                            toggle_sidebar();
+                                        }
+                                        }}
+                                    onMouseEnter={() => setIsEnterExamHovered(true)}
+                                    onMouseLeave={() => setIsEnterExamHovered(false)}
+                                    className={page === 'enterExam' ? 'active p-3' : 'p-3'}
+                                >
+                                    <img
+                                    src={isEnterExamHovered ? EnterExamImage : (page === 'enterExam' ? EnterExamImage : EnterExamWhiteImage)}
+                                    alt=""
+                                    />
+                                    <p>Enter Exam</p>
                                 </li>
                             }
                         </ul>
