@@ -279,7 +279,7 @@ export default function Sidebar({page, setPage}){
                                     src={isEnterExamHovered ? EnterExamImage : (page === 'enterExam' ? EnterExamImage : EnterExamWhiteImage)}
                                     alt=""
                                     />
-                                    <p>Enter Exam</p>
+                                    <p>Today's Exams</p>
                                 </li>
                             }
                         </ul>

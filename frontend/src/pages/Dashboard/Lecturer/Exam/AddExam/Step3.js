@@ -11,7 +11,7 @@ export default function Step3({setCurrentStep, step1, step2}){
             <div className="row">
                 <div className="col-lg-6">
                     <button className="step3-back-button" onClick={()=>{
-                        setCurrentStep(()=>1)
+                        setCurrentStep(()=>2)
                     }}>
                         Back
                     </button>

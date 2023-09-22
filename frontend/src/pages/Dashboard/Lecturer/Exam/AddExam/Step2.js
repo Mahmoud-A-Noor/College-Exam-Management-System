@@ -12,7 +12,7 @@ export default function Step2({setCurrentStep, examRelatedInfo, examQuestions, s
             return examQuestions
         }else{
             return Array.from({ length: numberOfQuestions }, (_, index) => ({
-                questionHeader: '',
+                header: '',
                 isMCQ: false,
                 falseAnswers: "false",
                 trueAnswer: 'true',

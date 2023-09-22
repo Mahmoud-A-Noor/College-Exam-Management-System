@@ -12,7 +12,7 @@ export default function Question({questionNumber, tempExamQuestions, setTempExam
 
     const [radioDirection, setRadioDirection] = useState('column');
     const [isMCQ, setIsMCQ] = useState(tempExamQuestions?tempExamQuestions[questionNumber-1].isMCQ:false)
-    const [questionHeader, setQuestionHeader] = useState(tempExamQuestions?tempExamQuestions[questionNumber-1].questionHeader:"")
+    const [header, setHeader] = useState(tempExamQuestions?tempExamQuestions[questionNumber-1].header:"")
     const [falseAnswers, setFalseAnswers] = useState(tempExamQuestions?tempExamQuestions[questionNumber-1].falseAnswers:"");
     const [trueAnswer, setTrueAnswer] = useState(tempExamQuestions?tempExamQuestions[questionNumber-1].trueAnswer:"true");
 
@@ -127,12 +127,12 @@ export default function Question({questionNumber, tempExamQuestions, setTempExam
                         fullWidth
                         multiline
                         minRows={3}
-                        value={questionHeader}
+                        value={header}
                         onChange={(e)=>{
-                            setQuestionHeader(e.target.value)
+                            setHeader(e.target.value)
                             setTempExamQuestions((prevTempExamQuestions)=>{
                                 const updatedTempExamQuestions = prevTempExamQuestions;
-                                updatedTempExamQuestions[questionNumber-1].questionHeader = e.target.value
+                                updatedTempExamQuestions[questionNumber-1].header = e.target.value
                                 return updatedTempExamQuestions
                             })
                         }}

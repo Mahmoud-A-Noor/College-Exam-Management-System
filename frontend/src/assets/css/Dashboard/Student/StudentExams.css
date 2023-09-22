@@ -1,0 +1,63 @@
+#student-exams{
+    padding-top: 6em;
+    padding-inline: 1em;
+    background-color: #f7f7ff;
+    min-height: 100vh;
+}
+
+/* @media (min-width: 1023px) { */
+@media (min-width: 1215px) {
+	#student-exams{
+		padding-left: 235px;
+        padding-right: 5px;
+        padding-block: 0.5em;
+	}
+}
+
+#student-exams form{
+    padding-inline: 1em;
+}
+
+#student-exams form{
+    position: relative;
+    padding-inline: 3em;
+    padding-top: 3em;
+    padding-bottom: 1.5em;
+    margin-top: 5.5em;
+    margin-bottom: 1em;
+    margin-inline: 2em;
+    border: 5px solid #333399;
+}
+
+#student-exams form::after{
+    position: absolute;
+    top: -55px;
+    left: 50%;
+    transform: translateX(-50%);
+    content: "Exam Questions";
+    font-family: var(--font-primary);
+    font-size: 1.9rem;
+    font-weight: 500;
+    padding: 1em 2em;
+    color: #333399;
+    background-color: #f7f7ff;
+}
+
+#student-exams h1{
+    position: relative;
+    font-family: var(--font-primary);
+    margin-block: 1em;
+}
+
+#student-exams h1::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    bottom: -15px;
+    width: 95px;
+    height: 4px;
+    border-radius: 50px;
+    background: linear-gradient(90deg,#6597CB 0%,#35369B 100%);
+}

@@ -18,7 +18,7 @@ import LecturerCourses from "../pages/Dashboard/Lecturer/Courses"
 
 import StudentHome from '../pages/Dashboard/Student/Home/StudentHome'
 import EnrollCourses from '../pages/Dashboard/Student/EnrollCourses'
-import EnterExam from '../pages/Dashboard/Student/EnterExam'
+import StudentExams from '../pages/Dashboard/Student/Exam/StudentExams'
 
 
 export default function useUserContent() {
@@ -110,7 +110,7 @@ export default function useUserContent() {
         }
         else if (page === "enterExam"){
             if (userData?.user_type === "student"){
-                setPageContent(<EnterExam />)
+                setPageContent(<StudentExams />)
             }
             else{
                 setPage("home")

@@ -28,6 +28,7 @@ export default function useAddExamStates() {
             setStepContent(<Step2 setCurrentStep={setCurrentStep} examRelatedInfo={examRelatedInfo} examQuestions={examQuestions} setExamQuestions={setExamQuestions} disableFields={false} displayButtons={true} />)
         }
         else if (currentStep === 3){
+            console.log(examQuestions)
             setStepContent(<Step3 
                 examRelatedInfo={examRelatedInfo} 
                 examQuestions={examQuestions} 

@@ -11,6 +11,7 @@ export default function Exams({ setPage }) {
           course_name: "Mathematics",
           exam_duration: "2 hours",
           exam_date: "2023-09-15",
+          exam_time: "12:00 PM",
           actions: (
             <div>
               <button className="btn btn-primary rounded-0 me-2 text-light">Edit</button>
@@ -22,6 +23,7 @@ export default function Exams({ setPage }) {
           course_name: "Physics",
           exam_duration: "1.5 hours",
           exam_date: "2023-09-20",
+          exam_time: "7:00 AM",
           actions: (
             <div>
               <button className="btn btn-primary rounded-0 me-2 text-light">Edit</button>
@@ -29,7 +31,7 @@ export default function Exams({ setPage }) {
             </div>
           ),
         },
-      ]
+    ]
 
     const columns = useMemo(
         () => [
@@ -44,6 +46,10 @@ export default function Exams({ setPage }) {
         {
             accessorKey: "exam_date",
             header: "Exam Date",
+        },
+        {
+            accessorKey: "exam_time",
+            header: "Exam Time",
         },
         {
             accessorKey: "actions",
