@@ -1,0 +1,56 @@
+#step1{
+    position: relative;
+    padding-inline: 3em;
+    padding-top: 3em;
+    padding-bottom: 1.5em;
+    margin-top: 5em;
+    margin-bottom: 1em;
+    margin-inline: 2em;
+    border: 5px solid #333399;
+}
+
+#step1::after{
+    position: absolute;
+    top: -55px;
+    left: 50%;
+    transform: translateX(-50%);
+    content: "Exam Related Info";
+    font-family: var(--font-primary);
+    font-size: 1.9rem;
+    font-weight: 500;
+    padding: 1em 2em;
+    color: #333399;
+    background-color: #f7f7ff;
+}
+
+@media (max-width: 769px) {
+    #step1{
+        padding-top: 1.5em;
+    }
+
+    #step1::after{
+        top: -30px;
+        font-size: 1.35rem;
+        padding: 0.5em 0.5em;
+    }
+}
+
+@media (max-width: 448px) {
+    #step1{
+        padding-inline: 1em;
+    }
+
+    #step1::after{
+        content: none;
+    }
+}
+
+#step1-submit{
+    width: 100%;
+    font-family: var(--font-primary);
+    font-size: 1.2rem;
+    color: white;
+    padding: 0.375em 0.75em;
+    border: 1px solid #dee2e6;
+    background: linear-gradient(90deg,#6597CB 0%,#35369B 100%);
+}

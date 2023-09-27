@@ -1,0 +1,140 @@
+#sidebar-body-overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 5;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+
+#sidebar-toggler{
+    position: fixed;
+    top: 0;
+    width: 100%;
+	background: linear-gradient(90deg,#35369B 0%,#6597CB 100%);
+	color: white;
+	font-size: 2.5rem;
+	padding-block: 0.3em;
+	padding-inline: 0.5em;
+	cursor: pointer;
+    transition: all 0.5s ease;
+    z-index: 6;
+}
+
+#sidebar-toggler.active{
+    margin-left: 200px;
+}
+
+#sidebar{
+    position: fixed;
+    top: 0;
+    left: -200px;
+    width: 200px;
+    height: 100%;
+    padding-top: 20px;
+	z-index: 7;
+    background: linear-gradient(90deg,#35369B 0%,#6597CB 100%);
+    transition: all 0.5s ease;
+}
+
+#sidebar.active{
+    left: 0;
+}
+
+/* @media (min-width: 1023px) { */
+@media (min-width: 1215px) {
+	#sidebar-toggler{
+		display: none;
+	}
+
+	#sidebar{
+		left: 0;
+		width: 230px;
+	}
+}
+
+#sidebar-img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#sidebar-img img{
+    width: 150px;
+    height: 150px;
+}
+
+
+@media (min-width: 1215px) {
+    #sidebar-img img{
+        width: 180px;
+        height: 180px;
+    }
+}
+
+#sidebar-user-info{
+    text-align: center;
+    color: white;
+}
+
+#sidebar-user-info p{
+    margin-top: 0.5em;
+    font-weight: 500;
+    margin-bottom: -0.2em;
+}
+
+#sidebar-user-info small{
+    font-weight: 400;
+}
+
+#sidebar-nav-items{
+    height: calc(100vh - 257px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow-y: auto;
+}
+
+@media (min-width: 1215px) {
+    #sidebar-nav-items{
+        height: calc(100vh - 287px);
+    }
+}
+
+#sidebar-nav-items ul li{
+    display: flex;
+    align-items: center;
+    color: white;
+    padding-block: 0.5em;
+    padding-inline: 1em;
+    cursor: pointer;
+    transition: all 0.5s;
+    height: 70px;
+}
+
+#sidebar-nav-items ul li:hover, #sidebar-nav-items ul li.active{
+    background-color: white;
+    color: var(--color-primary);
+}
+
+#sidebar-nav-items ul li i{
+    font-size: 2rem;
+    margin-right: 15px;
+}
+
+#sidebar-nav-items ul li img{
+    max-width: 35px;
+    margin-right: 15px;
+}
+
+#sidebar-nav-items ul li p{
+    display: flex;
+    align-items: center;
+}
+
+#sidebar-user-actions-nav-items{
+    width: 100%;
+}

@@ -1,0 +1,53 @@
+#needs{
+    padding-block: 5em;
+    background-color: whitesmoke;
+}
+
+#needs-header{
+    text-align: center;
+    margin-bottom: 3em;
+}
+
+#needs-header h1{
+    font-family: var(--font-primary);
+    font-size: 2.3rem;
+    color: var(--color-primary);
+}
+
+.need-card{
+    padding: 2em;
+    background-color: white;
+    border-radius: 10px;
+    height: 230px;
+    max-width: 600px;
+    box-shadow: 0px 29px 49px #00000026;
+    background-color: white;
+    transition: scale 0.4s;
+}
+
+
+@media only screen and (max-width: 991px) {
+    .need-card{
+        margin-inline: auto;
+        margin-block: 1em;
+        height: auto;
+    }
+}
+
+.need-card h5{
+    margin-bottom: 1em;
+}
+
+.need-card p{
+    color: #373F83;
+}
+
+.need-card:hover{
+    background: linear-gradient(90deg,#6597CB 0%,#35369B 100%);
+    scale: 1.08;
+    box-shadow: none;
+}
+
+.need-card:hover h5, .need-card:hover p{
+    color: white;
+}

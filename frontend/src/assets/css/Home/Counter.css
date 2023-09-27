@@ -1,0 +1,28 @@
+#counter{
+    padding-block: 8em;
+    background-color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../../images/university.jpg) center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#counter h4{
+    display: inline;
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    margin-right: 0.05em;
+}
+
+#counter span{
+    font-size: 3rem;
+    font-weight: 700;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: white;
+}
+
+#counter p{
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.6);
+}
