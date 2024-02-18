@@ -44,7 +44,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     phone_number = models.CharField(max_length=12, null=True, blank=True)
     gender = models.CharField(max_length=1, choices=(('M', 'Male'), ('F', 'Female')))
     img = models.ImageField(upload_to='images/', blank=True, null=True)
-    user_type = models.CharField(max_length=10, choices=USER_TYPES, default='S')
+    user_type = models.CharField(max_length=10, choices=USER_TYPES, default='student')
     date_joined = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)

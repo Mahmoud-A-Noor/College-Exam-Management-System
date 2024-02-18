@@ -30,7 +30,7 @@ class Course(models.Model):
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
     credits = models.IntegerField(default=3, validators=[MinValueValidator(1), MaxValueValidator(4)])
     semester = models.CharField(max_length=6, choices=SEMESTER_OPTIONS)
-    prerequisites = models.ManyToManyField('self', symmetrical=False, null=True, blank=True)
+    prerequisites = models.ManyToManyField('self', symmetrical=False, blank=True)
     lecturers = models.ManyToManyField(get_user_model())
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -46,7 +46,7 @@ class Course(models.Model):
         if not self.pk:
             self.code = f'{self.department}-{self.code}'
             self.name = f'{self.name}-{self.semester}'
-        return super().save()
+        super().save()
 
 class Request(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)

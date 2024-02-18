@@ -75,7 +75,7 @@ export default function Register(){
                                     </div>
                                     <div className='col-12'>
                                         <label htmlFor="gpa" className="form-label">GPA</label>
-                                        <input id='gpa' name='gpa' className='my-form-control' placeholder='GPA' type='number' min="1" max="4" />
+                                        <input id='gpa' name='gpa' className='my-form-control' placeholder='GPA' type='number' step="0.01" />
                                     </div>
                                     <div className='col-12'>
                                         <label htmlFor="img" className="form-label">Profile Image</label>

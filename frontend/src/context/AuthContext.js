@@ -76,11 +76,11 @@ export const AuthProvider = ({children}) => {
             }
         }
 
-        formData.append('user_type', 'S');
+        formData.append('user_type', 'student');
 
         axios.post(BASE_API_URL + 'account/register/', formData)
-            .then(response => {
-                loginUser(e)
+            .then((response)=>{
+                e.target.reset();
             })
             .catch(error => {
                 console.error(error);
@@ -109,11 +109,11 @@ export const AuthProvider = ({children}) => {
             }
         }
 
-        formData.append('user_type', 'S');
+        formData.append('user_type', 'lecturer');
 
         axios.post(BASE_API_URL + 'account/register/', formData)
-            .then(response => {
-                loginUser(e)
+            .then((response)=>{
+                e.target.reset();
             })
             .catch(error => {
                 console.error(error);
