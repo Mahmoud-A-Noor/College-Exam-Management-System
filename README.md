@@ -1,1 +1,1 @@
-# Exam-Management-System
+# College Exam Management System
