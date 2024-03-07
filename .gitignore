@@ -4,7 +4,6 @@ Pipfile
 Pipfile.lock
 migrations
 __pycache__
-db.sqlite3
 .env
 backend/env/
 media
