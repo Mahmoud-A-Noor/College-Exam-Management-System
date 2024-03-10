@@ -1,5 +1,6 @@
 // eslint-disable-next-line
 import { Chart as ChartJS} from "chart.js/auto"
+import { useEffect, useState } from "react";
 
 
 import InsightCards from "./InsightCards";
@@ -8,10 +9,82 @@ import PassedStudentCourseRatio from "./PassedStudentCourseRatio";
 import StudentCoursePerformance from "./StudentCoursePerformance";
 import LecturerWorkload from "./LecturerWorkload";
 
+import useAuthToken from '../../../../hooks/useAuthToken'
+import useAxios from '../../../../hooks/useAxios'
+
 import "../../../../assets/css/Dashboard/Admin/AdminHome.css"
 
 
 export default function AdminHome(){
+  const { authToken, updateAuthToken } = useAuthToken();
+  const axiosInstance = useAxios(authToken, updateAuthToken);
+
+  const [studentCoursePerformanceData, setStudentCoursePerformanceData] = useState({
+      labels: [], // Add your lecturer names here
+      datasets: [
+        {
+          label: 'Average Students scores Per Course',
+          data: [], // average students scores per subject
+        },
+      ],});
+  const [passedStudentsData, setPassedStudentsData] = useState({
+      labels: [],
+      datasets: [
+          {
+            fill: true,
+            label: "Passed Students",
+            data: [], // number of passed students per semester
+          },
+          {
+            fill: true,
+            label: "Failed Students",
+            data: [], // number of failed students per semester
+          }
+      ]
+    });
+  const [passedStudentCourseRatioData, setPassedStudentCourseRatioData] = useState({
+      labels: [], 
+      datasets: [
+          {
+              label: "Passed Student/Course Ratio",
+              data: [], // passed students/total students per subject
+          }
+      ]
+    });
+  const [lecturerWorkloadData, setLecturerWorkloadData] = useState({
+      labels: [], // Add your lecturer names here
+      datasets: [
+        {
+          label: 'Number of Exams Per Lecturer',
+          data: [], // Add the number of exams per lecturer here
+        },
+      ],
+    });
+  const [insightsCountData, setInsightsCountData] = useState({})
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const studentCoursePerformanceResponse = await axiosInstance.get('/api/student-course-performance/');
+        const passedStudentsResponse = await axiosInstance.get('/api/passed-students/');
+        const passedStudentCourseRatioResponse = await axiosInstance.get('/api/passed-student-course-ratio/');
+        const lecturerWorkloadResponse = await axiosInstance.get('/api/lecturer-workload/');
+        const insightsCountResponse = await axiosInstance.get('/api/insights-counts/');
+
+        setStudentCoursePerformanceData(studentCoursePerformanceResponse.data);
+        setPassedStudentsData(passedStudentsResponse.data);
+        setPassedStudentCourseRatioData(passedStudentCourseRatioResponse.data);
+        setLecturerWorkloadData(lecturerWorkloadResponse.data);
+        setInsightsCountData(insightsCountResponse.data)
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+
   // const UserData = [
   //     {
   //       id: 1,
@@ -64,56 +137,56 @@ export default function AdminHome(){
   //     ]
   // }
 
-  const studentCoursePerformanceData = {
-    labels: ['Course 1', 'Course 2', 'Course 3', 'Course 4', 'Course 5', 'Course 6', 'Course 7', 'Course 8', ], // Add your lecturer names here
-    datasets: [
-      {
-        label: 'Average Students scores Per Course',
-        data: [10, 8, 12, 7, 3, 5, 10, 15], // average students scores per subject
-      },
-    ],
-  }
+  // studentCoursePerformanceData = {
+  //   labels: ['Course 1', 'Course 2', 'Course 3', 'Course 4', 'Course 5', 'Course 6', 'Course 7', 'Course 8', ], // Add your lecturer names here
+  //   datasets: [
+  //     {
+  //       label: 'Average Students scores Per Course',
+  //       data: [10, 8, 12, 7, 3, 5, 10, 15], // average students scores per subject
+  //     },
+  //   ],
+  // }
 
-  const passedStudentsData = {
-    labels: ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'],
-    datasets: [
-        {
-          fill: true,
-          label: "Passed Students",
-          data: [0, 30, 60, 25, 60, 25, 50, 0], // number of passed students per semester
-        },
-        {
-          fill: true,
-          label: "Failed Students",
-          data: [25, 50, 25, 50, 25, 50, 25, 50], // number of failed students per semester
-        }
-    ]
-  }
+  // passedStudentsData = {
+  //   labels: ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'],
+  //   datasets: [
+  //       {
+  //         fill: true,
+  //         label: "Passed Students",
+  //         data: [0, 30, 60, 25, 60, 25, 50, 0], // number of passed students per semester
+  //       },
+  //       {
+  //         fill: true,
+  //         label: "Failed Students",
+  //         data: [25, 50, 25, 50, 25, 50, 25, 50], // number of failed students per semester
+  //       }
+  //   ]
+  // }
 
-  const passedStudentCourseRatioData = {
-    labels: ["Course 1", "Course 2", "Course 3","Course 4", "Course 5"], 
-    datasets: [
-        {
-            label: "Passed Student/Course Ratio",
-            data: [0.9, 0.3, 0.7, 0.5, 1], // passed students/total students per subject
-        }
-    ]
-  }
+  // passedStudentCourseRatioData = {
+  //   labels: ["Course 1", "Course 2", "Course 3","Course 4", "Course 5"], 
+  //   datasets: [
+  //       {
+  //           label: "Passed Student/Course Ratio",
+  //           data: [0.9, 0.3, 0.7, 0.5, 1], // passed students/total students per subject
+  //       }
+  //   ]
+  // }
   
-  const lecturerWorloadData = {
-    labels: ['Lecturer A', 'Lecturer B', 'Lecturer C', 'Lecturer D', 'Lecturer E', 'Lecturer F', 'Lecturer G', 'Lecturer H'], // Add your lecturer names here
-    datasets: [
-      {
-        label: 'Number of Exams Per Lecturer',
-        data: [10, 8, 12, 7, 3, 5, 10, 15], // Add the number of exams per lecturer here
-      },
-    ],
-  };
+  // lecturerWorkloadData = {
+  //   labels: ['Lecturer A', 'Lecturer B', 'Lecturer C', 'Lecturer D', 'Lecturer E', 'Lecturer F', 'Lecturer G', 'Lecturer H'], // Add your lecturer names here
+  //   datasets: [
+  //     {
+  //       label: 'Number of Exams Per Lecturer',
+  //       data: [10, 8, 12, 7, 3, 5, 10, 15], // Add the number of exams per lecturer here
+  //     },
+  //   ],
+  // };
 
     return (
         <div id="admin-home">
             <div className="row justify-content-center">
-              <InsightCards />
+              <InsightCards insightsCountData={insightsCountData} />
               <nav className="d-flex justify-content-center">
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
                   <button className="nav-link gradient-text active" id="nav-passed-failed-students-tab" data-bs-toggle="tab" data-bs-target="#nav-passed-failed-students" type="button" role="tab" aria-controls="nav-passed-failed-students" aria-selected="true">Passed/Failed Students</button>
@@ -140,7 +213,7 @@ export default function AdminHome(){
                 </div>
                 <div className="tab-pane fade" id="nav-lecturer-workload" role="tabpanel" aria-labelledby="nav-lecturer-workload-tab" tabIndex="0">
                   <div className="chart-container">
-                    <LecturerWorkload lecturerWorloadData={lecturerWorloadData} />
+                    <LecturerWorkload lecturerWorkloadData={lecturerWorkloadData} />
                   </div>
                 </div>
               </div>

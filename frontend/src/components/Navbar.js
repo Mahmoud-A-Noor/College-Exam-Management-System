@@ -10,7 +10,6 @@ import logo from '../assets/images/logo.png'
 export default function Navbar(){
 
     const { userData } = useContext(AuthContext)
-    console.log(userData)
 
     return (
         <nav id="navbar" className="navbar navbar-expand-lg sticky">
@@ -36,7 +35,11 @@ export default function Navbar(){
                 <NavLink to="/request-demo" className="nav-link primary-onhover-btn">Request Demo</NavLink>
               </li>
             </ul>
-            {userData? null:
+            {userData? 
+              <div id="nav-login-register">
+                <NavLink to="/dashboard" className="nav-link gradient-text">Dashboard</NavLink>
+              </div>
+            :
               <div id="nav-login-register">
                 <NavLink to="/login" className="nav-link gradient-text">Login</NavLink>
                 

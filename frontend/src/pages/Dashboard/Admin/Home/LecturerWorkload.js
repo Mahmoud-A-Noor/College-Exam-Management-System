@@ -3,10 +3,10 @@ import { Bar } from 'react-chartjs-2';
 // eslint-disable-next-line
 import { Chart as ChartJS} from "chart.js/auto"
 
-const LecturerWorkload = ({lecturerWorloadData}) => {
+const LecturerWorkload = ({lecturerWorkloadData}) => {
 
     useEffect(() => {
-      const data = lecturerWorloadData.datasets[0].data;
+      const data = lecturerWorkloadData.datasets[0].data;
       const sum = data.reduce((acc, val) => acc + val, 0);
   
       // Calculate the dynamic offset as a percentage (e.g., 10%) of the range of data values
@@ -17,7 +17,7 @@ const LecturerWorkload = ({lecturerWorloadData}) => {
       const max_custom_average = (sum / data.length) + dynamicOffset;
       const min_custom_average = (sum / data.length) - dynamicOffset;
     
-        const colors = lecturerWorloadData.datasets[0].data.map((value) => {
+        const colors = lecturerWorkloadData.datasets[0].data.map((value) => {
             if (value > max_custom_average) {
                 return "rgba(248, 7, 89)"
             } else if (value < min_custom_average) {
@@ -26,7 +26,7 @@ const LecturerWorkload = ({lecturerWorloadData}) => {
                 return "rgba(0, 167, 88)"
             }
         });
-        lecturerWorloadData.datasets[0].backgroundColor = colors;
+        lecturerWorkloadData.datasets[0].backgroundColor = colors;
         // eslint-disable-next-line
     }, [])
 
@@ -57,7 +57,7 @@ const LecturerWorkload = ({lecturerWorloadData}) => {
     <>
         <h2>Lecturer Workload</h2>
         <Bar 
-            data={lecturerWorloadData} 
+            data={lecturerWorkloadData} 
             options={options}
         />
     </>

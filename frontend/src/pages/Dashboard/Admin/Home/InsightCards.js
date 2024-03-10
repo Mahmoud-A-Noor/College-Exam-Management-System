@@ -1,6 +1,6 @@
 import { Sparklines, SparklinesLine, SparklinesCurve, SparklinesBars } from 'react-sparklines';
 
-export default function InsightCards(){
+export default function InsightCards({insightsCountData}){
     return (
         <div id='insight-cards'>
             <div className="row">
@@ -9,7 +9,7 @@ export default function InsightCards(){
                         <div className="d-flex align-items-center justify-content-between">
                             <div>
                                 <h5 className='text-center'>Student</h5>
-                                <h4>+10000</h4>
+                                <h4>+{insightsCountData.students_count}</h4>
                             </div>
                             <div>
                                 <Sparklines data={[5,8,7,10,9,10,8,6,4,6,8,7,6,8]} svgHeight={35} svgWidth={70}>
@@ -24,7 +24,7 @@ export default function InsightCards(){
                         <div className="d-flex align-items-center justify-content-between">
                             <div>
                                 <h5 className='text-center'>Lecturer</h5>
-                                <h4>+5000</h4>
+                                <h4>+{insightsCountData.lecturers_count}</h4>
                             </div>
                             <div>
                                 <Sparklines data={[0,5,3,7,5,10,3,6,5,10]} svgHeight={40} svgWidth={80}>
@@ -39,7 +39,7 @@ export default function InsightCards(){
                         <div className="d-flex align-items-center justify-content-between">
                             <div>
                                 <h5>Course</h5>
-                                <h4>+24</h4>
+                                <h4>+{insightsCountData.courses_count}</h4>
                             </div>
                             <div>
                                 <Sparklines data={[2, 4, 16, 256, 16, 4, 2, 4, 16, 256, 16, 4, 2]} svgHeight={40} svgWidth={75}>
@@ -54,7 +54,7 @@ export default function InsightCards(){
                         <div className="d-flex align-items-center justify-content-between">
                             <div className='d-flex flex-column align-items-center'>
                                 <h5>Exam</h5>
-                                <h4>+160</h4>
+                                <h4>+{insightsCountData.exams_count}</h4>
                             </div>
                             <div>
                                 <Sparklines data={[5,6,7,9,9,5,3,2,2,4,6,7]} svgHeight={25} svgWidth={100}>

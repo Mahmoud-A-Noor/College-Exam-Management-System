@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 import Autocomplete from '@mui/material/Autocomplete';
 
@@ -15,40 +15,28 @@ import FormControl from '@mui/material/FormControl';
 
 import useAuthToken from '../../../../hooks/useAuthToken'
 import useAxios from '../../../../hooks/useAxios'
-import AuthContext from '../../../../context/AuthContext';
 
 
-import "../../../../assets/css/Dashboard/Admin/AddCourse.css"
+import "../../../../assets/css/Dashboard/Admin/UpdateCourse.css"
 
 
 
-export default function AddCourse(){
+export default function UpdateCourseModal({name, final_percentage, content, is_active, lecturer_id, edit_url, setError, setSuccess, lecturers}){
 
     const form = useRef(null);
-    const [lecturers, setLecturers] = useState([])
     const { authToken, updateAuthToken } = useAuthToken();
     const axiosInstance = useAxios(authToken, updateAuthToken);
-    const { error, setError, success, setSuccess } = useContext(AuthContext)
-
-    useEffect(() => {
-        setError("")
-        setSuccess("")
-        axiosInstance.get('/api/get-lecturers-for-select/')
-            .then(response => {
-                setLecturers(response.data);
-            })
-            .catch(error => {
-                setError('Error fetching lecturers:', error);
-            });
-    }, []);
-
     const [formData, setFormData] = useState({
-        name: '',
-        final_percentage: '',
-        content: '',
-        is_active: true,
-        lecturer: null
+        name: name?name:'',
+        final_percentage: final_percentage?final_percentage:'',
+        content: content?content:'',
+        is_active: is_active?is_active.toString():"false",
+        lecturer: lecturers?lecturers.map((lecturer)=>{
+            if(lecturer.id === lecturer_id)
+            return lecturer
+        }):null
     });
+    
 
     const FieldStyle = {
         margin: '14px 0',
@@ -95,47 +83,36 @@ export default function AddCourse(){
 
         setSuccess("")
         setError("")
-
-        axiosInstance.post('/api/courses/create/', {
+        axiosInstance.put(`${edit_url}`, {
             name: formData.name,
             final_percentage: formData.final_percentage,
             content: formData.content,
             is_active: formData.is_active,
-            lecturer: formData.lecturer.id
+            lecturer: Array.isArray(formData.lecturer)?formData.lecturer[0].id:formData.lecturer.id
         })
-            .then(response => {
-                setSuccess("Course Added Successfully")
-                setFormData({
-                    name: '',
-                    final_percentage: '',
-                    content: '',
-                    is_active: true,
-                    lecturer: null
-                })
+        .then(response => {
+            setSuccess("Course Updated Successfully")
+            setFormData({
+                name: '',
+                final_percentage: '',
+                content: '',
+                is_active: true,
+                lecturer: null
             })
-            .catch(error => {
-                console.error(error)
-                setError(`Error creating course: ${error.response.data.error}`)
-            });
+        })
+        .catch(error => {
+            console.error(error)
+            setError(`Error Updating course: ${error.response.data.error}`)
+        });
     };
 
     return (
-        <div id="add-course">
+        <div id="update-course">
             <div className='container'>
                 <div className='row align-items-center justify-content-center'>
-                    <div className='col-lg-8 col-md-12'>
+                    <div className='col-lg-10 col-md-12'>
                         <form ref={form} onSubmit={handleSubmit}>
-                            {success && (
-                                <div className="alert alert-success text-center" role="alert">
-                                    {success}
-                                </div>
-                            )}
-                            {error && (
-                                <div className="alert alert-danger" role="alert">
-                                    {error}
-                                </div>
-                            )}
-                            <h3 className='text-center'>Add Course</h3>
+                            <h3 className='text-center'>Update Course</h3>
                             <TextField
                                 label="Course Name"
                                 variant="outlined"
@@ -167,20 +144,27 @@ export default function AddCourse(){
                                 name="lecturer" 
                                 onChange={handleSelectChange}
                                 options={lecturers}
-                                getOptionLabel={(option) => option.name}
-                                isOptionEqualToValue={(option, value) => option.id === value.id}
+                                getOptionLabel={(option) => {      
+                                    if(Array.isArray(option))
+                                        return option[0].name
+                                    return option.name
+                                }}
+                                isOptionEqualToValue={(option, value) => {   
+                                    if(Array.isArray(value))
+                                        return option.id === value[0].id
+                                    return option.id === value.id
+                                }}
                                 defaultValue={null}
-                                value={formData.lecturer}
+                                value={formData.lecturer?formData.lecturer:null}
                                 sx={FieldStyle}
                                 renderInput={(params) => <TextField {...params}  label="Select Lecturer" />}
-                                />
+                            />
 
                             <FormControl style={{width: "100%"}}>
                                 <RadioGroup  style={{width: "100%"}}
                                     row={true}
                                     aria-labelledby="demo-radio-buttons-group-label"
-                                    defaultValue="true"
-                                    value={formData.is_active}
+                                    value={formData.is_active || "false"}
                                     name="is_active"
                                     onChange={handleInputChange}
                                 >
@@ -211,8 +195,8 @@ export default function AddCourse(){
                             </div>
                             <div className="row text-center">
                                 <div className="col-lg-6 col-md-9 col-sm-12 mx-auto">
-                                    <button id="add-course-form-button">
-                                        Add Course
+                                    <button id="update-course-form-button" data-bs-dismiss="modal" aria-label="Close">
+                                        Update Course
                                     </button>
                                 </div>
                             </div>
