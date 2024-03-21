@@ -5,6 +5,7 @@ Pipfile.lock
 migrations
 __pycache__
 .env
+backend/db.sqlite3
 backend/env/
 media
 shell.txt

@@ -1,15 +1,53 @@
 // eslint-disable-next-line
 import { Chart as ChartJS} from "chart.js/auto"
 
+import { useEffect, useState, useContext } from "react";
+
 import InsightCards from "./InsightCards";
 import ExamCompletionRates from "./ExamCompletionRates";
 import ExamPerformance from "./ExamPerformance";
 import StudentPerformance from "./StudentPerformance";
 
+import useAuthToken from '../../../../hooks/useAuthToken'
+import useAxios from '../../../../hooks/useAxios'
+import AuthContext from '../../../../context/AuthContext'
+
 import "../../../../assets/css/Dashboard/Lecturer/LecturerHome.css"
 
 
 export default function LecturerHome(){
+    const { authToken, updateAuthToken } = useAuthToken();
+    const axiosInstance = useAxios(authToken, updateAuthToken);
+    const { user } = useContext(AuthContext)
+
+    const [examCompletionRatesData, setExamCompletionRatesData] = useState({
+      labels: [],
+      datasets: [
+          {
+              label: 'Completion Rate',
+              data: [],
+          },
+      ],
+    });
+    const [examPerformanceData, setExamPerformanceData] = useState({
+        labels: [],
+        datasets: [
+            {
+                label: 'Average Students scores Per Exam',
+                data: [],
+            },
+        ],
+    });
+    const [studentPerformanceData, setStudentPerformanceData] = useState({
+        labels: ["Excellent", "Very Good", "Good", "Average", "Below Average"],
+        datasets: [
+            {
+                data: [], // number of students that have taken exams of this lecturer for each category
+                backgroundColor: ['#4CAF50', '#8BC34A', '#FFC107', '#FF9800', '#F44336'],
+            },
+        ],
+    });
+    const [lecturerInsights, setLecturerInsights] = useState({})
 
     // const UserData = [
     //     {
@@ -63,41 +101,86 @@ export default function LecturerHome(){
     //     ]
     // }
 
-    const examCompletionRatesData = {
-      labels: ['Exam 1', 'Exam 2', 'Exam 3', 'Exam 4', 'Exam 5'], // Add your exam names here
-      datasets: [
-        {
-          label: 'Completion Rate',
-          data: [85, 92, 78, 60, 95], // Add your completion rate data here (percentage)
-          // backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(255, 99, 132, 0.6)'],
-        },
-      ],
-    }
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const examCompletionRatesResponse = await axiosInstance.get('/api/exam-completion-rates/');
+          const examPerformanceResponse = await axiosInstance.get('/api/exam-performance-data/');
+          const studentPerformanceResponse = await axiosInstance.get('/api/student-performance-data/');
+          const lecturerInsightsResponse = await axiosInstance.get('/api/lecturer-insights/',{
+            params: {
+              lecturer_id: user.user_id,
+            },
+          });
 
-    const examPerformanceData = {
-      labels: ['Exam 1', 'Exam 2', 'Exam 3', 'Exam 4', 'Exam 5', 'Exam 6', 'Exam 7'], // Add your semester labels here
-      datasets: [
-        {
-          label: 'Average Students scores Per Exam',
-          data: [45, 100, 70, 50, 90, 57, 63], 
-        },
-      ],
-    }
+          setExamCompletionRatesData(prevState => ({
+              ...prevState,
+              labels: examCompletionRatesResponse.data.labels,
+              datasets: [{
+                  label: 'Completion Rate',
+                  data: examCompletionRatesResponse.data,
+              }],
+          }));
+          setExamPerformanceData(prevState => ({
+            ...prevState,
+            labels: examPerformanceResponse.data.labels,
+            datasets: [{
+                label: 'Average Students scores Per Exam',
+                data: examPerformanceResponse.data,
+            }],
+          }));
+          setStudentPerformanceData(prevState => ({
+            ...prevState,
+            datasets: [{
+                data: studentPerformanceResponse.data,
+                backgroundColor: ['#4CAF50', '#8BC34A', '#FFC107', '#FF9800', '#F44336']
+            }],
+          }));
+          setLecturerInsights(lecturerInsightsResponse.data)
 
-    const studentPerformanceData = {
-      labels: ["Excellent", "Very Good", "Good", "Average", "Below Average"],
-      datasets: [
-        {
-          data: [30, 45, 60, 40, 25], // number of students that have taken exams of this lecturer for each category
-          backgroundColor: ['#4CAF50', '#8BC34A', '#FFC107', '#FF9800', '#F44336'],
-        },
-      ],
-    }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+  
+      fetchData();
+    }, []);
+
+    // const examCompletionRatesData = {
+    //   labels: ['Exam 1', 'Exam 2', 'Exam 3', 'Exam 4', 'Exam 5'], // Add your exam names here
+    //   datasets: [
+    //     {
+    //       label: 'Completion Rate',
+    //       data: [85, 92, 78, 60, 95], // Add your completion rate data here (percentage)
+    //       // backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 206, 86, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+    //     },
+    //   ],
+    // }
+
+    // const examPerformanceData = {
+    //   labels: ['Exam 1', 'Exam 2', 'Exam 3', 'Exam 4', 'Exam 5', 'Exam 6', 'Exam 7'], // Add your semester labels here
+    //   datasets: [
+    //     {
+    //       label: 'Average Students scores Per Exam',
+    //       data: [45, 100, 70, 50, 90, 57, 63], 
+    //     },
+    //   ],
+    // }
+
+    // const studentPerformanceData = {
+    //   labels: ["Excellent", "Very Good", "Good", "Average", "Below Average"],
+    //   datasets: [
+    //     {
+    //       data: [30, 45, 60, 40, 25], // number of students that have taken exams of this lecturer for each category
+    //       backgroundColor: ['#4CAF50', '#8BC34A', '#FFC107', '#FF9800', '#F44336'],
+    //     },
+    //   ],
+    // }
 
     return (
       <div id="lecturer-home">
         <div className="row justify-content-center">
-            <InsightCards />
+            <InsightCards lecturerInsights={lecturerInsights} />
             <nav className="d-flex justify-content-center">
               <div className="nav nav-tabs" id="nav-tab" role="tablist">
                 <button className="nav-link reverse-gradient-text active" id="nav-student-performance-tab" data-bs-toggle="tab" data-bs-target="#nav-student-performance" type="button" role="tab" aria-controls="nav-student-performance" aria-selected="true">Student Performance</button>

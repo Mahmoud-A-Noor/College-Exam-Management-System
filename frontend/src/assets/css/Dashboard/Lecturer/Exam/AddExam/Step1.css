@@ -9,7 +9,31 @@
     border: 5px solid #333399;
 }
 
+#step1-update{
+    position: relative;
+    padding-inline: 3em;
+    padding-top: 3em;
+    padding-bottom: 1.5em;
+    margin-top: 6em;
+    margin-bottom: 1em;
+    border: 5px solid #333399;
+}
+
 #step1::after{
+    position: absolute;
+    top: -55px;
+    left: 50%;
+    transform: translateX(-50%);
+    content: "Exam Related Info";
+    font-family: var(--font-primary);
+    font-size: 1.9rem;
+    font-weight: 500;
+    padding: 1em 2em;
+    color: #333399;
+    background-color: #f7f7ff;
+}
+
+#step1-update::after{
     position: absolute;
     top: -55px;
     left: 50%;
@@ -29,18 +53,30 @@
     }
 
     #step1::after{
-        top: -30px;
-        font-size: 1.35rem;
+        top: -25px;
+        font-size: 1rem;
+        padding: 0.5em 0.5em;
+    }
+}
+
+@media (max-width: 1061px) {
+    #step1-update{
+        padding-top: 1.5em;
+    }
+
+    #step1-update::after{
+        top: -23px;
+        font-size: 1rem;
         padding: 0.5em 0.5em;
     }
 }
 
 @media (max-width: 448px) {
-    #step1{
+    #step1-update{
         padding-inline: 1em;
     }
 
-    #step1::after{
+    #step1-update::after{
         content: none;
     }
 }

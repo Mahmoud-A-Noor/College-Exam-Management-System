@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Course, Request
+from .models import Course, Request, Exam, ExamQuestion
 from django.urls import reverse
 
 
@@ -21,3 +21,14 @@ class RequestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Request
         fields = '__all__'
+
+class ExamQuestionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ExamQuestion
+        fields = ['id', 'exam', 'header', 'isMCQ', 'trueAnswer', 'falseAnswers']
+
+class ExamSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Exam
+        fields = ['id', 'course', 'is_final', 'exam_datetime', 'num_questions', 'total_degree', 'duration']

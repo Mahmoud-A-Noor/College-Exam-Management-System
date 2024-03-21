@@ -5,10 +5,22 @@
     min-height: 100vh;
 }
 
+#update-exam{
+    padding-inline: 1em;
+    background-color: #f7f7ff;
+    min-height: 100vh;
+}
+
 /* @media (min-width: 1023px) { */
 @media (min-width: 1215px) {
 	#add-exam{
 		padding-left: 235px;
+        padding-right: 5px;
+        padding-block: 0.5em;
+	}
+
+    #update-exam{
+		padding-left: 5px;
         padding-right: 5px;
         padding-block: 0.5em;
 	}

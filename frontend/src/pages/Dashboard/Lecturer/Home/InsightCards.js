@@ -4,7 +4,7 @@ import ExamWhiteImg from '../../../../assets/images/exam-white-without-pen.png'
 import SuccessfulStudentImg from '../../../../assets/images/successful-student.png'
 import FailedStudentImg from '../../../../assets/images/failed-student.png'
 
-export default function InsightCards(){
+export default function InsightCards({lecturerInsights}){
     return (
         <div id='insight-cards'>
             <div className="row">
@@ -12,7 +12,7 @@ export default function InsightCards(){
                     <div id="student-card" className='insight-card'>
                         <div className="d-flex align-items-center justify-content-between">
                             <div className='text-center'>
-                                <h4>3750</h4>
+                                <h4>{lecturerInsights.enrollment_requests_count}</h4>
                                 <h5>Student</h5>
                             </div>
                             <div>
@@ -25,7 +25,7 @@ export default function InsightCards(){
                     <div id="exam-card" className='insight-card'>
                         <div className="d-flex align-items-center justify-content-between">
                             <div className='text-center'>
-                                <h4>7</h4>
+                                <h4>{lecturerInsights.exams_count}</h4>
                                 <h5>Exams</h5>
                             </div>
                             <div>
@@ -38,7 +38,7 @@ export default function InsightCards(){
                     <div id="successful-student-card" className='insight-card'>
                         <div className="d-flex align-items-center justify-content-between">
                             <div>
-                                <h4>3570</h4>
+                                <h4>{lecturerInsights.successful_students_count}</h4>
                                 <h5>Successful Student</h5>
                             </div>
                             <div>
@@ -51,7 +51,7 @@ export default function InsightCards(){
                     <div id="failed-student-card" className='insight-card'>
                         <div className="d-flex align-items-center justify-content-between">
                             <div>
-                                <h4>180</h4>
+                                <h4>{lecturerInsights.failed_students_count}</h4>
                                 <h5>Failed Student</h5>
                             </div>
                             <div>

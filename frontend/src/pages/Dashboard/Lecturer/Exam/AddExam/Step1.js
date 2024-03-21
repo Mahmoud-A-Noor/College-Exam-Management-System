@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useState, useEffect, useContext } from 'react'
+
+import useAuthToken from '../../../../../hooks/useAuthToken'
+import useAxios from '../../../../../hooks/useAxios'
+import AuthContext from '../../../../../context/AuthContext';
 
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -18,11 +23,16 @@ import dayjs from 'dayjs';
 
 import "../../../../../assets/css/Dashboard/Lecturer/Exam/AddExam/Step1.css"
 
-export default function Step1({setCurrentStep, setExamRelatedInfo, examRelatedInfo, disableFields, displayButtons}){
+export default function Step1({setCurrentStep, setExamRelatedInfo, examRelatedInfo, disableFields, displayButtons, isUpdate}){
 
+    const { authToken, updateAuthToken } = useAuthToken();
+    const axiosInstance = useAxios(authToken, updateAuthToken);
+    const { user, error, setError, success } = useContext(AuthContext)
+
+    const [coursesNames, setCoursesNames] = useState([]);
     const [courseName, setCourseName] = useState(examRelatedInfo?examRelatedInfo.courseName:"");
     const [isFinal, setIsFinal] = useState(examRelatedInfo?examRelatedInfo.isFinal:false);
-    const [examDateTime, setExamDateTime] = useState(examRelatedInfo?examRelatedInfo.examDateTime:dayjs());
+    const [examDateTime, setExamDateTime] = useState(examRelatedInfo?dayjs(examRelatedInfo.examDateTime):dayjs());
     const [numQuestions, setNumQuestions] = useState(examRelatedInfo?examRelatedInfo.numQuestions:"");
     const [totalDegree, setTotalDegree] = useState(examRelatedInfo?examRelatedInfo.totalDegree:"");
     const [duration, setDuration] = useState(examRelatedInfo?examRelatedInfo.duration:"");
@@ -41,6 +51,50 @@ export default function Step1({setCurrentStep, setExamRelatedInfo, examRelatedIn
         },
       },
     }
+    console.log("disableFields : ", disableFields)
+    console.log("isFinal : ", isFinal)
+
+    useEffect(()=>{
+      setError("")
+      console.log("disableFields(useEffectFinal) : ", disableFields)
+      console.log("isFinal(useEffectFinal) : ", isFinal)
+      if(courseName){
+        if(isFinal){
+          axiosInstance.get(`/api/courses/${courseName}/`)
+          .then((response)=>{
+            if(response.data){
+              const response_data = response.data
+              setTotalDegree(response_data.final_percentage)
+            }
+          })
+          .catch((error=>{
+            setError(`Error fetching Final Degree of the Course : ${error}`)
+          }))
+        }else{
+          // setTotalDegree("")
+        }
+      }
+    },[isFinal])
+
+    useEffect(()=>{
+      setError("")
+      console.log("disableFields(useEffect) : ", disableFields)
+      console.log("isFinal(useEffect) : ", isFinal)
+      axiosInstance.get('/api/get-lecturer-courses/',{
+        params: {
+          lecturer_id: user.user_id,
+        },
+      })
+        .then((response)=>{
+          if(response.data){
+            const response_data = response.data
+            setCoursesNames(()=>response_data.map((record)=>record.name))
+          }
+        })
+        .catch((error=>{
+          setError(`Couldn't fetch Courses Names : ${error.response.data.error}`)
+        }))
+    },[])
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
@@ -61,8 +115,18 @@ export default function Step1({setCurrentStep, setExamRelatedInfo, examRelatedIn
     return (
       <>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <div id="step1">
+          <div id={isUpdate?"step1-update":"step1"}>
               <form onSubmit={handleFormSubmit}>
+                  {success && (
+                    <div className="alert alert-success" role="alert">
+                        {success}
+                    </div>
+                  )}
+                  {error && (
+                    <div className="alert alert-danger" role="alert">
+                        {error}
+                    </div>
+                  )}
                   <FormControl variant="outlined" fullWidth margin="normal" sx={FieldStyle}>
                       <InputLabel>Course Name</InputLabel>
                       <Select
@@ -72,10 +136,9 @@ export default function Step1({setCurrentStep, setExamRelatedInfo, examRelatedIn
                           disabled={disableFields}
                           required={!disableFields}
                       >
-                          <MenuItem value="Math">Math</MenuItem>
-                          <MenuItem value="Science">Science</MenuItem>
-                          <MenuItem value="History">History</MenuItem>
-                          {/* Add more course options as needed */}
+                        {coursesNames.map((courseName)=>{
+                          return <MenuItem key={courseName} value={courseName}>{courseName}</MenuItem>
+                        })}
                       </Select>
                   </FormControl>
 
@@ -91,8 +154,10 @@ export default function Step1({setCurrentStep, setExamRelatedInfo, examRelatedIn
                               '&.Mui-checked': {
                                 color: '#333399', // Change the color when selected
                               },
+                              marginTop: 1, marginBottom: 1
                             }} />}
                           label="Final"
+                          disabled={disableFields}
                       />
                       <FormControlLabel
                           value="false"
@@ -102,6 +167,7 @@ export default function Step1({setCurrentStep, setExamRelatedInfo, examRelatedIn
                               },
                             }} />}
                           label="Not Final"
+                          disabled={disableFields}
                       />
                       </RadioGroup>
                   </FormControl>
@@ -139,7 +205,7 @@ export default function Step1({setCurrentStep, setExamRelatedInfo, examRelatedIn
                       fullWidth
                       value={totalDegree}
                       onChange={(e) => setTotalDegree(e.target.value)}
-                      disabled={disableFields}
+                      disabled={disableFields?true:Boolean(isFinal)}
                       required={!disableFields}
                       margin="normal"
                       sx={FieldStyle}

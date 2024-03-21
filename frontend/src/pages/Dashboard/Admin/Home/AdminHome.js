@@ -60,7 +60,7 @@ export default function AdminHome(){
         },
       ],
     });
-  const [insightsCountData, setInsightsCountData] = useState({})
+  const [adminInsights, setAdminInsights] = useState({})
 
   useEffect(() => {
     const fetchData = async () => {
@@ -69,13 +69,13 @@ export default function AdminHome(){
         const passedStudentsResponse = await axiosInstance.get('/api/passed-students/');
         const passedStudentCourseRatioResponse = await axiosInstance.get('/api/passed-student-course-ratio/');
         const lecturerWorkloadResponse = await axiosInstance.get('/api/lecturer-workload/');
-        const insightsCountResponse = await axiosInstance.get('/api/insights-counts/');
+        const insightsCountResponse = await axiosInstance.get('/api/admin-insights/');
 
         setStudentCoursePerformanceData(studentCoursePerformanceResponse.data);
         setPassedStudentsData(passedStudentsResponse.data);
         setPassedStudentCourseRatioData(passedStudentCourseRatioResponse.data);
         setLecturerWorkloadData(lecturerWorkloadResponse.data);
-        setInsightsCountData(insightsCountResponse.data)
+        setAdminInsights(insightsCountResponse.data)
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -186,7 +186,7 @@ export default function AdminHome(){
     return (
         <div id="admin-home">
             <div className="row justify-content-center">
-              <InsightCards insightsCountData={insightsCountData} />
+              <InsightCards adminInsights={adminInsights} />
               <nav className="d-flex justify-content-center">
                 <div className="nav nav-tabs" id="nav-tab" role="tablist">
                   <button className="nav-link gradient-text active" id="nav-passed-failed-students-tab" data-bs-toggle="tab" data-bs-target="#nav-passed-failed-students" type="button" role="tab" aria-controls="nav-passed-failed-students" aria-selected="true">Passed/Failed Students</button>

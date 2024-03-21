@@ -5,6 +5,11 @@
     min-height: 100vh;
 }
 
+.modal-dialog-edit{
+    width: 94% !important;
+    margin-inline: auto !important;
+}
+
 /* @media (min-width: 1023px) { */
 @media (min-width: 1215px) {
 	#exams{

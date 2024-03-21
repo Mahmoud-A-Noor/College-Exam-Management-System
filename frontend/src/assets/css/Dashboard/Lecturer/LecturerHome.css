@@ -51,7 +51,7 @@
 }
 
 #exam-card{
-    background: linear-gradient( 45deg , #ee0979, #ff6a00);
+    background: linear-gradient( 45deg , #f7971e, #ffd200);
 }
 
 #successful-student-card{
@@ -59,7 +59,7 @@
 }
 
 #failed-student-card{
-    background: linear-gradient(to right, #f7971e, #ffd200);
+    background: linear-gradient(to right, #ee0979, #ff6a00);
 }
 
 
