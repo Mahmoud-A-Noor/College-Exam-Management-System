@@ -18,6 +18,14 @@
     margin-bottom: 3em;
 }
 
+.no-insights{
+    margin-block: 11.5em;
+}
+
+.four-insights{
+    margin-bottom: 4.5em;
+}
+
 .insight-card{
     padding-block: 2em;
     padding-inline: 1.5em;

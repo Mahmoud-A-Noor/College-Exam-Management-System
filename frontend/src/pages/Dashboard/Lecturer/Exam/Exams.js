@@ -2,6 +2,7 @@ import { useMemo, useState, useContext, useEffect } from "react";
 
 import { MaterialReactTable } from "material-react-table";
 import Box from '@mui/material/Box';
+import dayjs from "dayjs";
 
 import useAuthToken from '../../../../hooks/useAuthToken'
 import useAxios from '../../../../hooks/useAxios'
@@ -173,6 +174,15 @@ export default function Exams({ setPage }) {
         {
             accessorKey: "exam_time",
             header: "Exam Time",
+            Cell: ({ cell }) =>{
+              return (
+                <Box>
+                  {
+                    dayjs(cell.getValue(), "HH:mm:ss.SSSSSS").format("h:mm A")
+                  }
+                </Box>
+              )
+            }
         },
         {
             accessorKey: "actions",

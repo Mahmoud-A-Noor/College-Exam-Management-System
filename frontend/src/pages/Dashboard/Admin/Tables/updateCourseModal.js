@@ -8,6 +8,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -21,7 +23,7 @@ import "../../../../assets/css/Dashboard/Admin/UpdateCourse.css"
 
 
 
-export default function UpdateCourseModal({name, final_percentage, content, is_active, lecturer_id, edit_url, setError, setSuccess, lecturers}){
+export default function UpdateCourseModal({name, final_percentage, content, is_active, year, lecturer_id, edit_url, setError, setSuccess, lecturers, getCoursesWithLecturers}){
 
     const form = useRef(null);
     const { authToken, updateAuthToken } = useAuthToken();
@@ -30,6 +32,7 @@ export default function UpdateCourseModal({name, final_percentage, content, is_a
         name: name?name:'',
         final_percentage: final_percentage?final_percentage:'',
         content: content?content:'',
+        year: year?year:'1',
         is_active: is_active?is_active.toString():"false",
         lecturer: lecturers?lecturers.map((lecturer)=>{
             if(lecturer.id === lecturer_id)
@@ -69,6 +72,13 @@ export default function UpdateCourseModal({name, final_percentage, content, is_a
         });
     };
 
+    const handleYearSelectChange = (event) => {
+        setFormData({
+            ...formData,
+            ["year"]: event.target.value,
+        });
+    };
+
     const handleCKEditorChange = (event, editor) => {
         const data = editor.getData();
         setFormData({
@@ -88,7 +98,8 @@ export default function UpdateCourseModal({name, final_percentage, content, is_a
             final_percentage: formData.final_percentage,
             content: formData.content,
             is_active: formData.is_active,
-            lecturer: Array.isArray(formData.lecturer)?formData.lecturer[0].id:formData.lecturer.id
+            lecturer: Array.isArray(formData.lecturer)?formData.lecturer[0].id:formData.lecturer.id,
+            year: formData.year
         })
         .then(response => {
             setSuccess("Course Updated Successfully")
@@ -97,8 +108,10 @@ export default function UpdateCourseModal({name, final_percentage, content, is_a
                 final_percentage: '',
                 content: '',
                 is_active: true,
-                lecturer: null
+                lecturer: null,
+                year: '1'
             })
+            getCoursesWithLecturers()
         })
         .catch(error => {
             console.error(error)
@@ -122,6 +135,7 @@ export default function UpdateCourseModal({name, final_percentage, content, is_a
                                 onChange={handleInputChange}
                                 margin="normal"
                                 sx={FieldStyle}
+                                required={true}
                             />
                             <TextField
                                 label="Final Exam Percentage"
@@ -136,6 +150,7 @@ export default function UpdateCourseModal({name, final_percentage, content, is_a
                                 onChange={handleInputChange}
                                 margin="normal"
                                 sx={FieldStyle}
+                                required={true}
                             />
                             
                             <Autocomplete
@@ -157,8 +172,21 @@ export default function UpdateCourseModal({name, final_percentage, content, is_a
                                 defaultValue={null}
                                 value={formData.lecturer?formData.lecturer:null}
                                 sx={FieldStyle}
-                                renderInput={(params) => <TextField {...params}  label="Select Lecturer" />}
+                                renderInput={(params) => <TextField {...params}  label="Select Lecturer" required={true} />}
                             />
+
+                            <FormControl variant="outlined" fullWidth margin="normal" sx={FieldStyle}>
+                                <Select
+                                    name="year"
+                                    value={formData.year}
+                                    onChange={handleYearSelectChange}
+                                >
+                                    <MenuItem value={1}>1st year</MenuItem>
+                                    <MenuItem value={2}>2nd year</MenuItem>
+                                    <MenuItem value={3}>3rd year</MenuItem>
+                                    <MenuItem value={4}>4th year</MenuItem>
+                                </Select>
+                            </FormControl>
 
                             <FormControl style={{width: "100%"}}>
                                 <RadioGroup  style={{width: "100%"}}
@@ -191,6 +219,7 @@ export default function UpdateCourseModal({name, final_percentage, content, is_a
                                     editor={ClassicEditor}
                                     data={formData.content}
                                     onChange={handleCKEditorChange}
+                                    config={{placeholder: "Course Content"}}
                                 />
                             </div>
                             <div className="row text-center">

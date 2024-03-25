@@ -30,69 +30,74 @@ export default function Courses({setPage}){
     })
   }
 
-  useEffect(() => {
-    setError("")
+  const getCoursesWithLecturers = ()=>{
     axiosInstance.get('/api/get-lecturers-for-select/')
-      .then(response => {
-        return response.data
-      }).then((data)=>{
-        axiosInstance.get("api/courses/")
-        .then((response)=>{
-          if(response.data){
-            const response_data = response.data
-            setData(()=>response_data.map((record)=>{
-              return {
-                is_active: record.is_active,
-                course_name: record.name,
-                lecturer: record.lecturer_full_name,
-                final_percentage: record.final_percentage,
-                course_content: <ContentComponent content={record.content} />,
-                actions: (
-                  <div className="w-100">
-                    <button className="btn btn-primary rounded-0 me-2 text-light" data-bs-toggle="modal" data-bs-target={`#${record.name}`}>Edit</button>
-                    <div className="modal fade" id={record.name} tabIndex="-1" role="dialog" aria-labelledby={`${record.name}Label`} aria-hidden="true">
-                      <div className="modal-dialog modal-dialog-centered" role="document">
-                        <div className="modal-content">
-                          <div className="modal-body">
-                            <UpdateCourseModal is_active={record.is_active} name={record.name} lecturer_id={record.lecturer} 
-                              content={record.content} final_percentage={record.final_percentage} edit_url={record.actions.edit} 
-                              setError={setError} setSuccess={setSuccess} lecturers={data}
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <button className="btn btn-danger rounded-0" data-bs-toggle="modal" data-bs-target={`#${record.name}_delete`}>Delete</button>
-                    <div className="modal fade" id={`${record.name}_delete`} tabIndex="-1" role="dialog" aria-labelledby={`${record.name}DeleteLabel`} aria-hidden="true">
-                      <div className="modal-dialog modal-dialog-centered" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                              <h5 className="modal-title text-warning">Warning</h5>
-                              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                          <div className="modal-body">
-                            <p>Are You sure you want to delete this Course</p>
-                          </div>
-                          <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={()=>{deleteCourse(record.actions.delete)}}>Delete</button>
-                          </div>
+    .then(response => {
+      return response.data
+    }).then((data)=>{
+      axiosInstance.get("api/courses/")
+      .then((response)=>{
+        if(response.data){
+          const response_data = response.data
+          setData(()=>response_data.map((record)=>{
+            return {
+              is_active: record.is_active,
+              course_name: record.name,
+              lecturer: record.lecturer_full_name,
+              final_percentage: record.final_percentage,
+              year: record.year,
+              course_content: <ContentComponent content={record.content} />,
+              actions: (
+                <div className="w-100">
+                  <button className="btn btn-primary rounded-0 me-2 text-light" data-bs-toggle="modal" data-bs-target={`#${record.name}`}>Edit</button>
+                  <div className="modal fade" id={record.name} tabIndex="-1" role="dialog" aria-labelledby={`${record.name}Label`} aria-hidden="true">
+                    <div className="modal-dialog  modal-dialog-edit mw-100" role="document">
+                      <div className="modal-content">
+                        <div className="modal-body">
+                          <UpdateCourseModal is_active={record.is_active} name={record.name} lecturer_id={record.lecturer} 
+                            content={record.content} final_percentage={record.final_percentage} edit_url={record.actions.edit} 
+                            setError={setError} setSuccess={setSuccess} lecturers={data} year={record.year} getCoursesWithLecturers={getCoursesWithLecturers}
+                          />
                         </div>
                       </div>
                     </div>
                   </div>
-                )
-              }
-          }))
-          }
-        })
-        .catch((error=>{
-          setError(`Couldn't fetch Courses Data : ${error.response.data.error}`)
+                  <button className="btn btn-danger rounded-0" data-bs-toggle="modal" data-bs-target={`#${record.name}_delete`}>Delete</button>
+                  <div className="modal fade" id={`${record.name}_delete`} tabIndex="-1" role="dialog" aria-labelledby={`${record.name}DeleteLabel`} aria-hidden="true">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
+                      <div className="modal-content">
+                          <div className="modal-header">
+                            <h5 className="modal-title text-warning">Warning</h5>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                        <div className="modal-body">
+                          <p>Are You sure you want to delete this Course</p>
+                        </div>
+                        <div className="modal-footer">
+                          <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="button" className="btn btn-danger" data-bs-dismiss="modal" onClick={()=>{deleteCourse(record.actions.delete)}}>Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )
+            }
         }))
+        }
       })
-      .catch(error => {
-        setError('Error fetching lecturers:', error);
-      });
+      .catch((error=>{
+        setError(`Couldn't fetch Courses Data : ${error.response.data.error}`)
+      }))
+    })
+    .catch(error => {
+      setError('Error fetching lecturers:', error);
+    });
+  }
+
+  useEffect(() => {
+    setError("")
+    getCoursesWithLecturers()
   }, [success])
 
 
@@ -190,6 +195,11 @@ export default function Courses({setPage}){
           {
               accessorKey: "final_percentage",
               header: "Final Percentage",
+          },
+          {
+              accessorKey: "year",
+              header: "Year",
+              Cell: ({ cell }) =>(cell.getValue()===1? "1st year" : cell.getValue()===2?"2nd year":cell.getValue()===3?"3rd year":"4th year")
           },
           {
               accessorKey: "course_content",

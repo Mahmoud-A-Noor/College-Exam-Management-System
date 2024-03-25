@@ -1,20 +1,28 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth import get_user_model
+from django.core.validators import MinValueValidator, MaxValueValidator
 
+
+YEAR_CHOICES = (
+    (1, '1st year'),
+    (2, '2nd year'),
+    (3, '3rd year'),
+    (4, '4th year'),
+)
 
 class Course(models.Model):
     name = models.CharField(max_length=50, unique=True)
     content = models.CharField(max_length=1000, null=True, blank=True)
     lecturer = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="courses_taught")
-    final_percentage = models.IntegerField()
+    final_percentage = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    year = models.IntegerField(choices=YEAR_CHOICES)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-
     @property
     def students(self):
-        return self.request_set.values_list('user', flat=True)
+        return self.enrollments.values_list('user', flat=True)
 
     class Meta:
         verbose_name = ("Course")
@@ -23,20 +31,24 @@ class Course(models.Model):
     def __str__(self):
         return self.name
 
+ENROLLMENT_STATUS = (
+    (1, 'Pending'),
+    (2, 'Failed'),
+    (3, 'Success'),
+)
 
-class Request(models.Model):
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
-    course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    score = models.FloatField(null=True, blank=True)  # Score specific to each student-course combination
-    created_at = models.DateTimeField(auto_now_add=True)
+class Enrollment(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name='enrollments')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='enrollments')
+    score = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(100.0)], null=True, blank=True)
+    status = models.IntegerField(choices=ENROLLMENT_STATUS, default=1)
+    enrollment_date = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = ("Request")
-        verbose_name_plural = ("Requests")
-        unique_together = ['user', 'course']
+        unique_together = ('user', 'course') 
 
     def __str__(self):
-        return f'{self.user.email}-{self.course.name}'
+        return f"{self.user} enrolled in {self.course} on {self.enrollment_date}"
     
 
 class Exam(models.Model):
@@ -76,9 +88,10 @@ class ExamAttempt(models.Model):
     class Meta:
         verbose_name = ("Exam Attempt")
         verbose_name_plural = ("Exam Attempts")
+        unique_together = (('exam', 'student'),)
 
     def __str__(self):
-        return f"{self.student.email} - {self.exam.name}"
+        return f"{self.student.email} - {self.exam.course}"
 
     def duration(self):
         if self.end_time and self.start_time:

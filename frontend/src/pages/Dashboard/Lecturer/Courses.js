@@ -32,6 +32,7 @@ export default function Courses(){
           is_active: record.is_active,
           course_name: record.name,
           final_percentage: record.final_percentage,
+          year: record.year,
           course_content: <ContentComponent content={record.content} />,
         }
       }))
@@ -97,6 +98,11 @@ export default function Courses(){
         {
             accessorKey: "final_percentage",
             header: "Final Percentage",
+        },
+        {
+            accessorKey: "year",
+            header: "Year",
+            Cell: ({ cell }) =>(cell.getValue()===1? "1st year" : cell.getValue()===2?"2nd year":cell.getValue()===3?"3rd year":"4th year")
         },
         {
             accessorKey: "course_content",

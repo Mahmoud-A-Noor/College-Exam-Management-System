@@ -1,10 +1,30 @@
 import CircularProgressBar from "./CircularProgressBar"
 
-export default function InsightCards(){
+export default function InsightCards({studentInsightsData}){
+
+
+    const insights = studentInsightsData?.map((record, index)=>{
+        return (
+            <div key={record.courseName} className="col-xl-3 col-lg-4 col-md-6 col-xs-12">
+                <div id={`course-${index+1}-card`} className='insight-card'>
+                    <div className="d-flex align-items-center justify-content-between">
+                        <div className='text-center'>
+                            <h5>{record.courseName}</h5>
+                        </div>
+                        <div>
+                            <CircularProgressBar progressValue={record.score?record.score:0} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    })
+
     return (
-        <div id='insight-cards'>
+        <div id='insight-cards' className={studentInsightsData.length <= 4?"four-insights":studentInsightsData.length === 0?"no-insights":""}>
             <div className="row justify-content-center">
-                <div className="col-xl-3 col-lg-4 col-md-6 col-xs-12">
+                {insights}
+                {/* <div className="col-xl-3 col-lg-4 col-md-6 col-xs-12">
                     <div id="course-1-card" className='insight-card'>
                         <div className="d-flex align-items-center justify-content-between">
                             <div className='text-center'>
@@ -75,7 +95,7 @@ export default function InsightCards(){
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

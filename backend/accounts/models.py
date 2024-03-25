@@ -1,7 +1,10 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils import timezone
+from django.core.validators import MinValueValidator, MaxValueValidator
+
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, first_name, last_name, gender, password, **extra_fields):
@@ -35,12 +38,23 @@ USER_TYPES = (
     ('lecturer', 'Lecturer'),
     ('admin', 'Admin'),
 )
+
+YEAR_CHOICES = (
+    (1, '1st year'),
+    (2, '2nd year'),
+    (3, '3rd year'),
+    (4, '4th year'),
+)
+
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
+    year = models.IntegerField(choices=YEAR_CHOICES, default=1)
+    student_id = models.CharField(max_length=10, unique=True, blank=True, null=True)
     date_of_birth = models.DateField(blank=True, null=True)
     address = models.TextField(blank=True, null=True)
+    gpa = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(4.0)], default=0)
     phone_number = models.CharField(max_length=12, null=True, blank=True)
     gender = models.CharField(max_length=1, choices=(('M', 'Male'), ('F', 'Female')))
     img = models.ImageField(upload_to='images/', blank=True, null=True)
@@ -56,3 +70,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+    
+    def save(self, *args, **kwargs):
+        if not self.student_id:  # Generate student_id only if not provided
+            self.student_id = str(uuid.uuid4().hex)[:10].upper()  # Generate a unique student ID
+        super().save(*args, **kwargs)

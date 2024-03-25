@@ -51,8 +51,6 @@ export default function Step1({setCurrentStep, setExamRelatedInfo, examRelatedIn
         },
       },
     }
-    console.log("disableFields : ", disableFields)
-    console.log("isFinal : ", isFinal)
 
     useEffect(()=>{
       setError("")

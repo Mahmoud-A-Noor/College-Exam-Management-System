@@ -8,6 +8,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -29,6 +31,16 @@ export default function AddCourse(){
     const { authToken, updateAuthToken } = useAuthToken();
     const axiosInstance = useAxios(authToken, updateAuthToken);
     const { error, setError, success, setSuccess } = useContext(AuthContext)
+    
+    const [formData, setFormData] = useState({
+        name: '',
+        final_percentage: '',
+        content: '',
+        is_active: true,
+        lecturer: null,
+        year: '1'
+    });
+
 
     useEffect(() => {
         setError("")
@@ -42,14 +54,7 @@ export default function AddCourse(){
             });
     }, []);
 
-    const [formData, setFormData] = useState({
-        name: '',
-        final_percentage: '',
-        content: '',
-        is_active: true,
-        lecturer: null
-    });
-
+    
     const FieldStyle = {
         margin: '14px 0',
         '& .MuiOutlinedInput-root': {
@@ -81,6 +86,13 @@ export default function AddCourse(){
         });
     };
 
+    const handleYearSelectChange = (event) => {
+        setFormData({
+            ...formData,
+            ["year"]: event.target.value,
+        });
+    };
+
     const handleCKEditorChange = (event, editor) => {
         const data = editor.getData();
         setFormData({
@@ -91,7 +103,15 @@ export default function AddCourse(){
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        form.current.reset();
+        // form.current.reset();
+        setFormData({
+            name: '',
+            final_percentage: '',
+            content: '',
+            is_active: true,
+            lecturer: null,
+            year: '1'
+        })
 
         setSuccess("")
         setError("")
@@ -101,22 +121,24 @@ export default function AddCourse(){
             final_percentage: formData.final_percentage,
             content: formData.content,
             is_active: formData.is_active,
-            lecturer: formData.lecturer.id
+            lecturer: formData.lecturer.id,
+            year: formData.year
         })
-            .then(response => {
-                setSuccess("Course Added Successfully")
-                setFormData({
-                    name: '',
-                    final_percentage: '',
-                    content: '',
-                    is_active: true,
-                    lecturer: null
-                })
+        .then(response => {
+            setSuccess("Course Added Successfully")
+            setFormData({
+                name: '',
+                final_percentage: '',
+                content: '',
+                is_active: true,
+                lecturer: null,
+                year: '1'
             })
-            .catch(error => {
-                console.error(error)
-                setError(`Error creating course: ${error.response.data.error}`)
-            });
+        })
+        .catch(error => {
+            console.error(error)
+            setError(`Error creating course: ${error.response.data}`)
+        });
     };
 
     return (
@@ -145,6 +167,7 @@ export default function AddCourse(){
                                 onChange={handleInputChange}
                                 margin="normal"
                                 sx={FieldStyle}
+                                required={true}
                             />
                             <TextField
                                 label="Final Exam Percentage"
@@ -159,6 +182,7 @@ export default function AddCourse(){
                                 onChange={handleInputChange}
                                 margin="normal"
                                 sx={FieldStyle}
+                                required={true}
                             />
                             
                             <Autocomplete
@@ -172,8 +196,21 @@ export default function AddCourse(){
                                 defaultValue={null}
                                 value={formData.lecturer}
                                 sx={FieldStyle}
-                                renderInput={(params) => <TextField {...params}  label="Select Lecturer" />}
-                                />
+                                renderInput={(params) => <TextField {...params}  label="Select Lecturer" required={true} />}
+                            />
+
+                        <FormControl variant="outlined" fullWidth margin="normal" sx={FieldStyle}>
+                        <Select
+                            name="year"
+                            value={formData.year}
+                            onChange={handleYearSelectChange}
+                        >
+                            <MenuItem value={1}>1st year</MenuItem>
+                            <MenuItem value={2}>2nd year</MenuItem>
+                            <MenuItem value={3}>3rd year</MenuItem>
+                            <MenuItem value={4}>4th year</MenuItem>
+                        </Select>
+                        </FormControl>
 
                             <FormControl style={{width: "100%"}}>
                                 <RadioGroup  style={{width: "100%"}}
@@ -207,6 +244,7 @@ export default function AddCourse(){
                                     editor={ClassicEditor}
                                     data={formData.content}
                                     onChange={handleCKEditorChange}
+                                    config={{placeholder: "Course Content"}}
                                 />
                             </div>
                             <div className="row text-center">

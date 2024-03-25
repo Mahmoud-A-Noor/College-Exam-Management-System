@@ -26,9 +26,13 @@ export default function SubjectPerformance({subjectPerformanceData}){
     } 
 
     return(
-        <div>
-            <h2>Course Performance</h2>
-            <Bar data={subjectPerformanceData} options={options} />
-        </div>
+        <>
+          {subjectPerformanceData && 
+            <div>
+                <h2>Course Performance</h2>
+                <Bar data={subjectPerformanceData} options={options} />
+            </div>
+          }
+        </>
     )
 }

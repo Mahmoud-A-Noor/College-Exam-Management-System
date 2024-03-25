@@ -82,7 +82,10 @@ export default function Question({question, questionNumber, setAnswers}){
                     (e)=>{
                         setAnswers((prevAnswers)=>{
                             const updatedAnswers = prevAnswers;
-                            updatedAnswers[questionNumber-1] = e.target.value;
+                            updatedAnswers[questionNumber-1] = {
+                                "question_id": question.id,
+                                "answer": e.target.value
+                            };
                             return updatedAnswers
                         })
                     }

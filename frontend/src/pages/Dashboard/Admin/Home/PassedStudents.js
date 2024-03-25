@@ -54,7 +54,7 @@ const PassedStudents = ({passedStudentsData}) => {
 
   return (
     <>
-        <h2>Passed/Failed Students Per Semester</h2>
+        <h2>Passed/Failed Students Per Year</h2>
         <Line id='passed-students'
             data={passedStudentsData}
             options={options}

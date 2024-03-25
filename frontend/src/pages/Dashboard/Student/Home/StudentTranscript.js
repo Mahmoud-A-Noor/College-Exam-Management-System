@@ -98,12 +98,30 @@ export default function StudentTranscript({ studentTranscriptData }) {
               <tr>
                 <th style={{"fontSize":"1.2rem"}} colSpan="2" className="table-info text-center">{yearData.year}</th>
               </tr>
-              {yearData.courses.map((course, courseIndex) => (
-                <tr className={course.degree > 90?"table-bg-success":course.degree >= 50?"table-bg-primary":"table-bg-danger"} key={courseIndex}>
-                  <td className="text-white">{course.courseName}</td>
-                  <td className="text-white">{course.degree}</td>
-                </tr>
-              ))}
+              {yearData.courses.map((course, courseIndex) => {
+                if (course.status === 1) {
+                  return(
+                    <tr className="table-warning text-center" key={courseIndex}>
+                      <td>{course.courseName}</td>
+                      <td>Pending</td>
+                    </tr>
+                  )
+                }else if(course.status === 2){
+                  return(
+                    <tr className="table-bg-danger text-center" key={courseIndex}>
+                      <td className="text-white">{course.courseName}</td>
+                      <td className="text-white">{course.score} (Failed)</td>
+                    </tr>
+                  )
+                }else{
+                  return (
+                    <tr className="table-bg-success text-center" key={courseIndex}>
+                      <td className="text-white">{course.courseName}</td>
+                      <td className="text-white">{course.score}</td>
+                    </tr>
+                  )
+                }
+              })}
             </tbody>
           ))}
         </table>

@@ -1,6 +1,6 @@
 from rest_framework import generics
-from .serializers import CourseSerializer, RequestSerializer
-from .models import Course, Request
+from .serializers import CourseSerializer, EnrollmentSerializer
+from .models import Course, Enrollment
 from rest_framework.response import Response
 from rest_framework import status
 from .decorators import user_type_required
@@ -57,9 +57,9 @@ class CourseView(BaseGenericView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
 
-class RequestListCreateView(generics.GenericAPIView):
-    queryset = Request.objects.all()
-    serializer_class = RequestSerializer
+class EnrollmentListCreateView(generics.GenericAPIView):
+    queryset = Enrollment.objects.all()
+    serializer_class = EnrollmentSerializer
 
     @user_type_required(['admin'])
     def get(self, request, pk=None):
