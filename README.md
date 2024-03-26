@@ -14,9 +14,14 @@
 
 
 ## Project Preview
+
+### Home
 ![1](https://github.com/Mahmoud-A-Noor/College-Exam-Management-System/assets/59361888/38447891-6b5f-4ff7-a1ad-b378edf04997)
+### About Us
 ![2](https://github.com/Mahmoud-A-Noor/College-Exam-Management-System/assets/59361888/556fece4-79a2-4cd5-95c1-d15e426b0277)
+### Contact Us
 ![3](https://github.com/Mahmoud-A-Noor/College-Exam-Management-System/assets/59361888/61f1cdbc-9c90-4ef0-944d-886c19dd44fe)
+### Login
 ![4](https://github.com/Mahmoud-A-Noor/College-Exam-Management-System/assets/59361888/a2914be5-c85b-41cc-8418-cfd68b4d33ef)
 
 
