@@ -1,5 +1,31 @@
 # College Exam Management System
 
+The College Exam Management System (CEMS) is a cutting-edge, fully automated platform designed to streamline and optimize the examination process within a college or university setting. With its intuitive interface and robust functionality, CEMS revolutionizes the way exams are administered, managed, and evaluated.<br /><br />
+
+**Common Key Features**<br />
+     ✨Unique Dashboard for each user type with analytics and insights<br />
+     ✨Profile Page<br /><br />
+
+**Admin Key Features:**<br />
+     ✨Add Students/Lecturers<br />
+     ✨Delete Students/Lecturers<br />
+     ✨List Students/Lecturers<br />
+     ✨Edit Students/Lecturers<br />
+     ✨Add Courses<br />
+     ✨Delete Courses<br />
+     ✨List Courses<br />
+     ✨Edit Courses<br /><br />
+
+**Lecturer Key Features:**<br />
+     ✨Create Exams<br />
+     ✨Delete Exams<br />
+     ✨List Exams<br />
+     ✨Edit Exams<br />
+     ✨List Courses<br /><br />
+
+**Student Key Features:**<br />
+     ✨Enroll Courses<br />
+     ✨Enter Exams<br /><br />
 
 ## Initial Credentials
 #### Admin
