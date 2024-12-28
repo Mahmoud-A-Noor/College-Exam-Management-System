@@ -1,43 +1,111 @@
 # College Exam Management System
+The College Exam Management System (CEMS) is a cutting-edge, fully automated platform designed to streamline and optimize the examination process within a college or university setting. With its intuitive interface and robust functionality, CEMS revolutionizes the way exams are administered, managed, and evaluated.
 
-The College Exam Management System (CEMS) is a cutting-edge, fully automated platform designed to streamline and optimize the examination process within a college or university setting. With its intuitive interface and robust functionality, CEMS revolutionizes the way exams are administered, managed, and evaluated.<br /><br />
+---
 
-**Common Key Features**<br />
-     ✨Unique Dashboard for each user type with analytics and insights<br />
-     ✨Profile Page<br /><br />
+## Key Features
 
-**Admin Key Features:**<br />
-     ✨Add Students/Lecturers<br />
-     ✨Delete Students/Lecturers<br />
-     ✨List Students/Lecturers<br />
-     ✨Edit Students/Lecturers<br />
-     ✨Add Courses<br />
-     ✨Delete Courses<br />
-     ✨List Courses<br />
-     ✨Edit Courses<br /><br />
 
-**Lecturer Key Features:**<br />
-     ✨Create Exams<br />
-     ✨Delete Exams<br />
-     ✨List Exams<br />
-     ✨Edit Exams<br />
-     ✨List Courses<br /><br />
+### Common Features
+✨ Unique Dashboard for each user type with analytics and insights <br />
+✨ Profile Page
 
-**Student Key Features:**<br />
-     ✨Enroll Courses<br />
-     ✨Enter Exams<br /><br />
+### Admin Features
+✨ Add, Edit, List, and Delete Students and Lecturers <br />
+✨ Add, Edit, List, and Delete Courses
+
+### Lecturer Features
+✨ Create, Edit, List, and Delete Exams <br />
+✨ List Courses
+
+### Student Features
+✨ Enroll in Courses <br />
+✨ Enter Exams
+
+---
+## Project Structure
+
+```
+college-exam-management-system/
+├── backend/
+│   ├── accounts/                 # User authentication and management
+│   ├── api/                      # REST API endpoints
+│   ├── courses/                  # Course management
+│   ├── exams/                    # Exam related functionality
+│   ├── manage.py                 # Django management script
+│   └── requirements.txt          # Python dependencies
+│
+├── frontend/
+│   ├── public/
+│   │   ├── assets/              # Static assets (images, fonts)
+│   │   └── index.html           # Main HTML template
+│   │
+│   ├── src/
+│   │   ├── components/          # Reusable React components
+│   │   ├── pages/               # Page components
+│   │   ├── services/            # API services
+│   │   ├── styles/              # CSS styles
+│   │   ├── utils/               # Utility functions
+│   │   └── App.js              # Main React component
+│   │
+│   └── package.json             # Node dependencies
+│ 
+│
+└── .gitignore                   # Git ignore file
+```
+
+## How to Run the Project
+
+### Prerequisites
+Ensure you have the following installed on your system:
+1. Python (3.8+)
+2. Node.js (16+)
+3. npm (or yarn)
+4. Git
+---
+
+#### Backend (Django)
+```bash
+# Navigate to the backend directory:
+cd backend
+# Install Python dependencies:
+pip install -r requirements.txt
+# Apply migrations:
+python manage.py migrate
+# Start the Django development server:
+python manage.py runserver
+```
+The backend server will be running at http://127.0.0.1:8000/.
+
+#### Frontend (React.js)
+```bash
+# Navigate to the frontend directory:
+cd frontend
+# Install Node.js dependencies:
+npm install
+# Start the React development server:
+npm start
+```
+The frontend server will be running at http://localhost:3000/.
+
+---
 
 ## Initial Credentials
-#### Admin
-**email** : admin@mail.com <br />
-**password** : admin<br /><br />
-#### Lecturer
-**email** : lecturer@mail.com <br />
-**password** : lecturer<br /><br />
-#### Student
-**email** : student@mail.com <br />
-**password** : student<br /><br />
 
+
+#### Admin
+- **Email**: admin@mail.com
+- **Password**: admin
+
+#### Lecturer
+- **Email**: lecturer@mail.com
+- **Password**: lecturer
+
+#### Student
+- **Email**: student@mail.com
+- **Password**: student
+
+---
 
 ## Project Preview
 
