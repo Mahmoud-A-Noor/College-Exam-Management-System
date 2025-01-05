@@ -15,6 +15,7 @@ from datetime import timedelta
 from dotenv import load_dotenv
 load_dotenv()
 import os
+import socket
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,8 +30,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
-CSRF_TRUSTED_ORIGINS = ['HTTPS://' + os.environ.get('RENDER_EXTERNAL_HOSTNAME')]
+def get_ipaddress(): 
+   host_name = socket.gethostname()
+   ip_address = socket.gethostbyname(host_name.local)
+   return "http://"+ip_address+":4200"
+
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
+CSRF_TRUSTED_ORIGINS=[get_ipaddress()]
 
 
 # Application definition
