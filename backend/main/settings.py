@@ -28,15 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-def get_ipaddress(): 
-   host_name = socket.gethostname()
-   ip_address = socket.gethostbyname(host_name.local)
-   return "http://"+ip_address+":4200"
-
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
-CSRF_TRUSTED_ORIGINS=[get_ipaddress()]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
